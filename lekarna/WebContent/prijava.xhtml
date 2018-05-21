@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:b="http://bootsfaces.net/ui">
+
+
+	<h:head>
+		<meta charset="UTF-8" />
+		<title>Prijava</title>
+	</h:head>
+
+	<h:body>
+	          
+
+	<b:container>
+	 <b:column>
+<h1>Prijava</h1>
+ </b:column>
+		<b:form method="POST" >
+			<b:inputText  value="#{zrno.izbranasifra}" name="sifra"/> 				
+			<b:commandButton action="#{zrno.login}" value="log in"/>
+		</b:form>
+<b:column>
+<p>#{zrno.alarm}</p>
+</b:column>
+		</b:container>
+	</h:body>
+
+</html>
