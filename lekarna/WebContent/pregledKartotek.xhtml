@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<meta charset="UTF-8" />
+<title>Home page</title>
+</head>
+<body>
+
+	<f:view>
+		<h:form>
+		
+					<f:metadata>
+						<f:viewParam name="id" value="#{zrno.pacientIme}" />
+					</f:metadata>
+
+			#{zrno.pacientIme}
+			
+			
+			<h:dataTable value="#{zrno.izbraniZapisi(zrno.pacientIme)}" var="c"
+						styleClass="pregled">
+						<h:column>
+							<b>Zapis #{c.id}</b><br></br>
+							 <h:outputText value="#{c.cas}" /><br></br>
+							 <h:outputText value="#{c.avtor}" />
+							 <h:outputText value="#{c.dopolnila}" />
+						</h:column>
+						
+						
+					</h:dataTable>
+			
+			<br></br>
+					<h:commandButton value="Nov predpis" action="novPredpis.xhtml" />
+
+		</h:form>
+	</f:view>
+</body>
+</html>

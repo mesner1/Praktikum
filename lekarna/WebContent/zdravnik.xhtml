@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<meta charset="UTF-8" />
+<title>Zdravnik</title>
+</head>
+<body>
+
+	
+	Uspešno ste se prijavili, g. #{request.remoteUser}!
+
+	<br></br> Izberite kartoteko pacienta
+	<h:form>
+	<h:selectOneMenu value="#{zrno.pacientIme}">
+			<f:selectItems value="#{zrno.kartoteke}" />
+		</h:selectOneMenu>
+
+		<h:commandButton value="Izberi" action="pregledKartotek.xhtml" />
+
+	</h:form>
+
+<!--  
+	<h:link value="Izberi" outcome="pregledKartotek.xhtml">
+		<f:param name="id" value="#{zrno.pacientIme}" />
+	</h:link>
+-->
+</body>
+</html>

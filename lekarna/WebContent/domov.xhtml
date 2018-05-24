@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<meta charset="UTF-8" />
+<title>Home page</title>
+</head>
+<body>
+
+	<f:view>
+		<h:form>
+
+
+			<a><h:link value="Lekarnar" outcome="lekarnar.xhtml" /></a>
+			<a><h:link value="Zdravnik" outcome="zdravnik.xhtml" /></a>
+			<br></br>
+			<td><h:commandButton value="Odjava"
+					actionListener="#{zrno.odjava}" action="odjava.xhtml"
+					styleClass="gumb" /></td>
+
+		</h:form>
+	</f:view>
+</body>
+</html>

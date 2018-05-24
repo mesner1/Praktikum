@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<meta charset="UTF-8" />
+<title>Vnos dopolnila</title>
+</head>
+<body>
+
+
+
+			<f:view>
+				<h:form>
+
+
+					<table id="vnos">
+						<tr>
+							<td><b>Novo dopolnilo</b></td>
+						</tr>
+
+						<tr>
+							<td>Naziv:</td>
+							<td><h:inputText id="naziv"
+									value="#{zrno.novoDopolnilo.naziv}" required="true" label="
+									naziv" p:placeholder="naziv">
+									<f:validateRequired />
+									<f:validateLength minimum="2" maximum="20" />
+								</h:inputText>* <h:message for="naziv" style="color:red" /></td>
+						</tr>
+
+
+						<tr>
+							<td>Na recept:</td>
+							<td><h:inputText id="naRecept"
+									value="#{zrno.novoDopolnilo.naRecept}" required="true"
+									label="naRecept">
+									<f:validateRequired />
+									<f:validateLongRange minimum="0" maximum="1" />
+								</h:inputText>* <h:message for="naRecept" style="color:red" /></td>
+						</tr>
+
+
+						<tr>
+							<td rowspan="2"><h:commandButton value="Dodaj"
+									actionListener="#{zrno.dodajDopolnilo}" action="seznam.xhtml"
+									styleClass="gumb" /></td>
+						</tr>
+
+					</table>
+
+
+
+				</h:form>
+			</f:view>
+
+</body>
+</html>

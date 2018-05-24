@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<meta charset="UTF-8" />
+<title>Nov predpis</title>
+</head>
+<body>
+
+	<f:view>
+		<h:form>
+
+			<f:metadata>
+				<f:viewParam name="id" value="#{zrno.pacientIme}" />
+			</f:metadata>
+
+			#{zrno.pacientIme}
+			
+			
+			<h:selectManyCheckbox value="#{zrno.izbranaDopolnila}">
+				<f:selectItems value="#{zrno.dopolnila}" />
+			</h:selectManyCheckbox>
+
+
+			<tr>
+				<td>Kolicina:</td>
+				<td><h:inputText id="kolicina"
+						value="#{zrno.novZapisDopolnila.kolicina}" required="true"
+						label="kolicina">
+						<f:validateRequired />
+						<f:validateLongRange minimum="1" maximum="10" />
+					</h:inputText>* <h:message for="kolicina" style="color:red" /></td>
+			</tr>
+
+			<h:commandButton value="Naprej"
+				actionListener="#{zrno.dodajPredpis(request.remoteUser)}"
+				action="seznam.xhtml" />
+
+		</h:form>
+	</f:view>
+</body>
+</html>
