@@ -17,6 +17,6 @@
 
 ### Shema trenutne baze
 
-
+https://github.com/mesner1/Praktikum/blob/master/Baza.png
 
 
