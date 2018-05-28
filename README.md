@@ -16,6 +16,10 @@
                                         
 * entiteto "Dopolnilo" napolnimo z želenimi zdravili, prehranskimi dopolnili ipd.
 * entiteto Kartoteka napolnimo s pacienti
+ALI
+
+*odzipaj lekarna.zip
+*importaj v mysql workbench, server-->data import
 
 
 ### Predzahteve
