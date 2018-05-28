@@ -9,23 +9,26 @@
 
 -Kopiraj .properties datoteki v "Wildfly 12. root\domain\configuration"
 
+### Predzahteve
+-Naložena vsaj Java 8
 
-* v entiteto "Tip" dodamo atribute z ID-ji: - 1. predpis
-                                           - 2. izdaja
-                                           - 3. zadnje_zaužitje
-                                        
+-Wildfly 12
+
+### Podatkovna baza
+* v entiteto "Tip" dodamo atribute z ID-ji: 
+- 1. predpis 
+- 2. izdaja
+- 3. zadnje_zaužitje                                   
 * entiteto "Dopolnilo" napolnimo z želenimi zdravili, prehranskimi dopolnili ipd.
 * entiteto Kartoteka napolnimo s pacienti
+
 ALI
 
 * odzipaj lekarna.zip
 * importaj v mysql workbench, server-->data import
 
 
-### Predzahteve
--Naložena vsaj Java 8
 
--Wildfly 12
 
 
 ## Shema trenutne baze
