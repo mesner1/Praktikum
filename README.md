@@ -16,9 +16,9 @@
 
 ### Podatkovna baza
 * v entiteto "Tip" dodamo atribute z ID-ji: 
-- 1. predpis 
-- 2. izdaja
-- 3. zadnje_zaužitje                                   
+1. predpis 
+2. izdaja
+3. zadnje_zaužitje                                   
 * entiteto "Dopolnilo" napolnimo z želenimi zdravili, prehranskimi dopolnili ipd.
 * entiteto Kartoteka napolnimo s pacienti
 
