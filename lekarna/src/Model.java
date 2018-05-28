@@ -23,26 +23,83 @@ public class Model {
 	private ArrayList<Zapis> izbraniZapisi = new ArrayList<Zapis>();
 	private int izbranID;
 
+	private int kolicina;
+	private ArrayList<Integer> kolicine = new ArrayList<Integer>();
+
 	private String pacientIme;
 
-//	public ArrayList<Zapis> izbraniZapisi(String ime) throws Exception {
-//		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
-//		int idKartoteke = Integer.parseInt(idPacienta);
-//		System.out.println("imeeee je " + idKartoteke);
-//		izbraniZapisi = (ArrayList<Zapis>) ZapisDAO.getInstance().vrniVse(idKartoteke);
-//		System.out.println("dolzina: "+ izbraniZapisi.size());
-//		return izbraniZapisi;
-//
-//	}
-	
+	public void poglejmo(String kolicine) {
+		System.out.println("POGLEJMO ZDAJ: " + kolicine);
+	}
+
 	public ArrayList<Zapis> izbraniZapisi(String ime) throws Exception {
 		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
 		int idKartoteke = Integer.parseInt(idPacienta);
 		System.out.println("imeeee je " + idKartoteke);
 		izbraniZapisi = (ArrayList<Zapis>) ZapisDAO.getInstance().vrniVse(idKartoteke);
-		System.out.println("dolzina: "+ izbraniZapisi.size());
+		System.out.println("dolzina: " + izbraniZapisi.size());
 		return izbraniZapisi;
 
+	}
+
+	public ArrayList<Zapis> izbraniZapisiLekarnar(String ime) throws Exception {
+		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+		int idKartoteke = Integer.parseInt(idPacienta);
+		izbraniZapisi = (ArrayList<Zapis>) ZapisDAO.getInstance().vrniVse(idKartoteke);
+		System.out.println("dolzina: " + izbraniZapisi.size());
+		return izbraniZapisi;
+
+	}
+
+	public void izdaj(String avtor, int idZapis, ArrayList<Dopolnilo> dopolnila) throws Exception {
+		try {
+			System.out.println("dOLŽina doPOlnIL: " + dopolnila.size());
+			System.out.println("dolžina izbranih: " + izbranaDopolnila.size());
+			System.out.println("naše ime je: " + this.getPacientIme());
+			String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+			int idKartoteke = Integer.parseInt(idPacienta);
+			novZapis.setKartoteka_id(idKartoteke);
+			System.out.println(novZapis.getKartoteka_id());
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+			LocalDateTime now = LocalDateTime.now();
+			Date cas = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+			System.out.println("èas:" + cas);
+			novZapis.setCas(cas);
+			novZapis.setTip("izdaja");
+			novZapis.setAvtor(avtor);
+			System.out.println("avtor je: " + novZapis.getAvtor());
+			ZapisDAO.getInstance().shraniZapis(novZapis);
+
+			System.out.println("ID zapisa: " + novZapis.getId());
+
+			novZapisDopolnila.setZapis_id(novZapis.getId());
+
+
+			for (int i = 0; i < dopolnila.size(); i++) {
+				izbranaDopolnila.add(dopolnila.get(i).getNaziv());
+			}
+
+			System.out.println("dolžina izbranih2: " + izbranaDopolnila.size());
+			System.out.println("PA TO:" + novZapisDopolnila.getZapis_id());
+
+			for (int i = 0; i < izbranaDopolnila.size(); i++) {
+				Dopolnilo izbrano = DopolniloDAO.getInstance().najdiDopolnilo(izbranaDopolnila.get(i));
+				System.out.println("poglejmo izbranoooo " + izbrano.getId());
+				Zapis_dopolnilo najden = Zapis_dopolniloDAO.getInstance().najdiDoloceno(izbrano.getId(), idZapis);
+				System.out.println("HAHAHAH: " + najden.getId());
+				novZapisDopolnila.setDopolnilo_id(izbrano.getId());
+				novZapisDopolnila.setKolicina(najden.getKolicina());
+				Zapis_dopolniloDAO.getInstance().shraniZapis_dopolnilo(novZapisDopolnila);
+
+			}
+
+			// novZapis.setDopolnila(izbranaDopolnila);
+			novZapis = new Zapis();
+			novZapisDopolnila = new Zapis_dopolnilo();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public ArrayList<Zapis> getIzbraniZapisi() {
@@ -119,6 +176,27 @@ public class Model {
 		this.dopolnila = dopolnila;
 	}
 
+	public int getKolicina() {
+		return kolicina;
+	}
+
+	public void setKolicina(int kolicina) {
+		System.out.println(kolicina);
+		kolicine.add(kolicina);
+		for (int i = 0; i < kolicine.size(); i++) {
+			System.out.println("kolicine:" + kolicine.get(i));
+		}
+		this.kolicina = kolicina;
+	}
+
+	public ArrayList<Integer> getKolicine() {
+		return kolicine;
+	}
+
+	public void setKolicine(ArrayList<Integer> kolicine) {
+		this.kolicine = kolicine;
+	}
+
 	public void dodajDopolnilo() {
 		try {
 			if (DopolniloDAO.getInstance().najdiDopolnilo(novoDopolnilo.getId()) == null) {
@@ -132,6 +210,11 @@ public class Model {
 	public void dodajPredpis(String avtor) {
 		try {
 
+			for (int i = 0; i < izbranaDopolnila.size(); i++) {
+				System.out.println("kej mamo tU: " + izbranaDopolnila.get(i));
+			}
+
+			System.out.println("kolicine:" + kolicine.size());
 			System.out.println("naše ime je: " + this.getPacientIme());
 			String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
 			int idKartoteke = Integer.parseInt(idPacienta);
@@ -139,30 +222,31 @@ public class Model {
 			System.out.println(novZapis.getKartoteka_id());
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
+
 			Date cas = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
 			System.out.println("èas:" + cas);
 			novZapis.setCas(cas);
-			novZapis.setTip_id(1);
-			System.out.println("hahaha: " + novZapis.getCas() + "in " + novZapis.getTip_id());
+			novZapis.setTip("predpis");
 			novZapis.setAvtor(avtor);
 			System.out.println("avtor je: " + novZapis.getAvtor());
-				ZapisDAO.getInstance().shraniZapis(novZapis);
+			ZapisDAO.getInstance().shraniZapis(novZapis);
 
-				System.out.println("ID zapisa: " + novZapis.getId());
-				System.out.println(izbranaDopolnila.size());
+			System.out.println("ID zapisa: " + novZapis.getId());
+			System.out.println(izbranaDopolnila.size());
 
-				novZapisDopolnila.setZapis_id(novZapis.getId());
+			novZapisDopolnila.setZapis_id(novZapis.getId());
 
-				for (int i = 0; i < izbranaDopolnila.size(); i++) {
-					Dopolnilo izbrano = DopolniloDAO.getInstance().najdiDopolnilo(izbranaDopolnila.get(i));
-					novZapisDopolnila.setDopolnilo_id(izbrano.getId());
-					Zapis_dopolniloDAO.getInstance().shraniZapis_dopolnilo(novZapisDopolnila);
+			for (int i = 0; i < izbranaDopolnila.size(); i++) {
+				Dopolnilo izbrano = DopolniloDAO.getInstance().najdiDopolnilo(izbranaDopolnila.get(i));
+				novZapisDopolnila.setDopolnilo_id(izbrano.getId());
+				novZapisDopolnila.setKolicina(kolicine.get(i));
+				Zapis_dopolniloDAO.getInstance().shraniZapis_dopolnilo(novZapisDopolnila);
 
-				}
+			}
 
-				//novZapis.setDopolnila(izbranaDopolnila);
-				novZapis = new Zapis();
-				novZapisDopolnila = new Zapis_dopolnilo();
+			// novZapis.setDopolnila(izbranaDopolnila);
+			novZapis = new Zapis();
+			novZapisDopolnila = new Zapis_dopolnilo();
 
 		} catch (Exception e) {
 			e.printStackTrace();

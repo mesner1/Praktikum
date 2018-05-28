@@ -8,7 +8,7 @@ public class Zapis {
 	private int id;
 	private Date cas;
 	private int kartoteka_id;
-	private int tip_id;
+	private String tip;
 	private String avtor;
 	private ArrayList<Dopolnilo> dopolnila;
 
@@ -17,25 +17,25 @@ public class Zapis {
 
 
 
-	public Zapis(int id, Date cas, int kartoteka_id, int tip_id, String avtor) {
+	public Zapis(int id, Date cas, int kartoteka_id, String tip, String avtor) {
 		this.id = id;
 		this.cas = cas;
 		this.kartoteka_id = kartoteka_id;
-		this.tip_id = tip_id;
+		this.tip = tip;
 		this.avtor = avtor;
 	}
 	
-	public Zapis(Date cas, int kartoteka_id, int tip_id, String avtor) {
+	public Zapis(Date cas, int kartoteka_id, String tip, String avtor) {
 		this.cas = cas;
 		this.kartoteka_id = kartoteka_id;
-		this.tip_id = tip_id;
+		this.tip = tip;
 		this.avtor = avtor;
 	}
 
-	public Zapis(Date cas, int kartoteka_id, int tip_id, String avtor, ArrayList<Dopolnilo> dopolnila) {
+	public Zapis(Date cas, int kartoteka_id, String tip, String avtor, ArrayList<Dopolnilo> dopolnila) {
 		this.cas = cas;
 		this.kartoteka_id = kartoteka_id;
-		this.tip_id = tip_id;
+		this.tip = tip;
 		this.avtor = avtor;
 		this.dopolnila = dopolnila;
 	}
@@ -84,14 +84,14 @@ public class Zapis {
 
 
 
-	public int getTip_id() {
-		return tip_id;
+	public String getTip() {
+		return tip;
 	}
 
 
 
-	public void setTip_id(int tip_id) {
-		this.tip_id = tip_id;
+	public void setTip(String tip) {
+		this.tip = tip;
 	}
 	
 	
@@ -129,6 +129,6 @@ public class Zapis {
 	// private static SimpleDateFormat sdf=new SimpleDateFormat("dd. MM. yyyy");
 	@Override
 	public String toString() {
-		return cas + " " + kartoteka_id + " " + tip_id;
+		return cas + " " + kartoteka_id + " " + tip;
 	}
 }

@@ -1,5 +1,7 @@
 
 
+import java.util.ArrayList;
+
 public class Zapis_dopolnilo {
 
 	private int id;
@@ -52,6 +54,15 @@ public class Zapis_dopolnilo {
 
 	public void setKolicina(int kolicina) {
 		this.kolicina = kolicina;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "Zapis_dopolnilo [id=" + id + ", dopolnilo_id=" + dopolnilo_id + ", zapis_id=" + zapis_id + ", kolicina="
+				+ kolicina + ", polje=" + "]";
 	}
 	
 	
