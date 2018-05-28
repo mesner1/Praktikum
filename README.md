@@ -18,8 +18,8 @@
 * entiteto Kartoteka napolnimo s pacienti
 ALI
 
-*odzipaj lekarna.zip
-*importaj v mysql workbench, server-->data import
+* odzipaj lekarna.zip
+* importaj v mysql workbench, server-->data import
 
 
 ### Predzahteve
