@@ -9,13 +9,22 @@
 
 -Kopiraj .properties datoteki v "Wildfly 12. root\domain\configuration"
 
+
+* v entiteto "Tip" dodamo atribute z ID-ji: - 1. predpis
+                                           - 2. izdaja
+                                           - 3. zadnje_zaužitje
+                                        
+* entiteto "Dopolnilo" napolnimo z želenimi zdravili, prehranskimi dopolnili ipd.
+* entiteto Kartoteka napolnimo s pacienti
+
+
 ### Predzahteve
 -Naložena vsaj Java 8
 
 -Wildfly 12
 
 
-### Shema trenutne baze
+## Shema trenutne baze
 ![alt text](https://github.com/mesner1/Praktikum/blob/master/Baza.png)
 
 
