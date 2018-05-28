@@ -5,7 +5,7 @@
 ## Navodila za vzpostavitev projekta:
 -Prenesi vsebino repozitorija
 
--Importiraj projekt Lekarna
+-Importaj projekt Lekarna
 
 -Kopiraj .properties datoteki v "Wildfly 12. root\domain\configuration"
 
