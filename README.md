@@ -25,7 +25,7 @@
 ALI
 
 * odzipaj lekarna.zip
-* importaj v mysql workbench, server -> data import
+* importaj v mysql workbench (server -> data import)
 
 
 
