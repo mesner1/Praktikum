@@ -18,13 +18,11 @@
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
 
-			<font size="6">Pacient: #{zrno.pacientIme}</font>
-
-			<br></br>
-			<br></br>
-
-			<h:dataTable value="#{zrno.izbraniZapisi(zrno.pacientIme)}" var="c"
-				styleClass="pregled">
+			#{zrno.pacientIme}
+			
+			
+			<h:dataTable value="#{zrno.izbraniZapisiLekarnar(zrno.pacientIme)}"
+				var="c" styleClass="pregled">
 				<h:column>
 					<font size="5"><b>Zapis #{c.id}</b></font>
 					<br></br>
@@ -34,6 +32,7 @@
 					<br></br>
 					<font size="4"><b>Seznam zdravil: </b></font>
 					<br></br>
+
 					<ui:repeat var="zdravilo" value="#{c.dopolnila}">
 						<font size="5"><h:link value="#{zdravilo}"
 								outcome="podrobnostiZdravilo.xhtml">
@@ -46,16 +45,22 @@
 					<h:outputText value="#{c.avtor}" />
 					<b> Tip: </b>
 					<h:outputText value="#{c.tip}" />
-
-
-
+					<h:commandButton value="Označi kot izdano"
+						actionListener="#{zrno.izdaj(request.remoteUser, c.id, c.dopolnila)}"
+						action="pregledZapisovLekarnar.xhtml" />
 				</h:column>
+
 
 
 			</h:dataTable>
 
+			<a> <h:link value="Nazaj" outcome="lekarnar.xhtml" /></a>
+			<a> <h:link value="Nova izdaja" outcome="izdajaLekarnar.xhtml" />
+			</a>
+			<a><h:link value="Preglej vse izdane zapise"
+					outcome="vsiIzdani.xhtml" /></a>
 			<br></br>
-			<h:commandButton value="Nov predpis" action="novPredpis.xhtml" />
+
 
 		</h:form>
 	</f:view>

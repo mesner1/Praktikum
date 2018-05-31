@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<meta charset="UTF-8" />
+<title>Nova izdaja</title>
+</head>
+<body>
+
+	<f:view>
+		<h:form>
+
+			<f:metadata>
+				<f:viewParam name="id" value="#{zrno.pacientIme}" />
+			</f:metadata>
+
+			#{zrno.pacientIme}
+
+
+			<h:selectManyCheckbox value="#{zrno.izbranaDopolnila}">
+				<f:selectItems value="#{zrno.dopolnilaBrezRecepta}" />
+			</h:selectManyCheckbox>
+
+
+
+
+
+			<h:commandButton value="Naprej" 
+				action="izbiraKolicineLekarnar.xhtml" /> 
+
+		</h:form>
+	</f:view>
+</body>
+</html>
