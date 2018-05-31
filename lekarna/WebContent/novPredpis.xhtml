@@ -19,26 +19,18 @@
 			</f:metadata>
 
 			#{zrno.pacientIme}
-			
-			
+
+
 			<h:selectManyCheckbox value="#{zrno.izbranaDopolnila}">
 				<f:selectItems value="#{zrno.dopolnila}" />
 			</h:selectManyCheckbox>
 
 
-			<tr>
-				<td>Kolicina:</td>
-				<td><h:inputText id="kolicina"
-						value="#{zrno.novZapisDopolnila.kolicina}" required="true"
-						label="kolicina">
-						<f:validateRequired />
-						<f:validateLongRange minimum="1" maximum="10" />
-					</h:inputText>* <h:message for="kolicina" style="color:red" /></td>
-			</tr>
 
-			<h:commandButton value="Naprej"
-				actionListener="#{zrno.dodajPredpis(request.remoteUser)}"
-				action="seznam.xhtml" />
+
+
+			<h:commandButton value="Naprej" 
+				action="izbiraKolicine.xhtml" /> 
 
 		</h:form>
 	</f:view>
