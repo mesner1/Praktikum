@@ -1,14 +1,19 @@
-
+package si.feri.praktikum;
 
 import java.util.List;
 
 public class Dopolnilo {
+	
+	public enum PrintFormat{
+	    F1, F2, F3
+	}
 
 	private int id;
 	private String naziv;
 	private int naRecept;
 	private int trajanje;
 	private int kolicina;
+	private String opis;
 
 	public Dopolnilo() {
 	}
@@ -17,6 +22,13 @@ public class Dopolnilo {
 		this.naziv = naziv;
 		this.naRecept = naRecept;
 		this.trajanje = trajanje;
+	}
+	
+	public Dopolnilo(String naziv, int naRecept, int trajanje, String opis) {
+		this.naziv = naziv;
+		this.naRecept = naRecept;
+		this.trajanje = trajanje;
+		this.opis = opis;
 	}
 
 	public Dopolnilo(String naziv, int naRecept, int trajanje, int kolicina) {
@@ -33,6 +45,22 @@ public class Dopolnilo {
 		this.trajanje = trajanje;
 	}
 
+	public Dopolnilo(String naziv, int naRecept, int trajanje, int kolicina, String opis) {
+		this.naziv = naziv;
+		this.naRecept = naRecept;
+		this.trajanje = trajanje;
+		this.kolicina = kolicina;
+		this.opis = opis;
+	}
+	
+	public Dopolnilo(int id, String naziv, int naRecept, int trajanje, String opis) {
+		this.id = id;
+		this.naziv = naziv;
+		this.naRecept = naRecept;
+		this.trajanje = trajanje;
+		this.opis = opis;
+	}
+	
 	public String getNaziv() {
 		return naziv;
 	}
@@ -76,6 +104,23 @@ public class Dopolnilo {
 	public void setKolicina(int kolicina) {
 		this.kolicina = kolicina;
 	}
+	
+	
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
+
+//	// private static SimpleDateFormat sdf=new SimpleDateFormat("dd. MM. yyyy");
+//	@Override
+//	public String toString() {
+//		return naziv + " (" + kolicina + "x)";
+//	}
+
 
 	// private static SimpleDateFormat sdf=new SimpleDateFormat("dd. MM. yyyy");
 	@Override

@@ -1,4 +1,4 @@
-
+package si.feri.praktikum;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,7 +43,7 @@ public class KartotekaDAO {
 		
 		public Kartoteka najdiKartoteko(int id) throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println("DAO: išèem "+id);
+			System.out.println("DAO: i��em "+id);
 			Kartoteka ret = null;
 			Connection conn=null;
 			try {
@@ -89,7 +89,7 @@ public class KartotekaDAO {
 		
 		public List<Kartoteka> vrniVse() throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println(("DAO: vraèam vse èlane"));
+			System.out.println(("DAO: vra�am vse �lane"));
 			List<Kartoteka> ret = new ArrayList<Kartoteka>();
 			Connection conn=null;
 			try {
@@ -108,52 +108,6 @@ public class KartotekaDAO {
 				conn.close();
 			}
 			return ret;
-		}
-//		
-//		public void izbrisiClana(int id) throws Exception {
-//			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/fitnes");	
-//			System.out.println("DAO: išèem za izbris "+id);
-//			Connection conn=null;
-//			try {
-//				conn=ds.getConnection();
-//				PreparedStatement ps = conn.prepareStatement("delete from clan where id=?",PreparedStatement.RETURN_GENERATED_KEYS);
-//				PreparedStatement ps2 = conn.prepareStatement("delete from meritev where idClana=?",PreparedStatement.RETURN_GENERATED_KEYS);
-//				ps.setInt(1, id);
-//				ps2.setInt(1, id);
-//				ps.execute();
-//				ps2.execute();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				conn.close();
-//			}
-//		}
-//		
-//		
-//		public void spremeniClana(Clan o) throws Exception {
-//			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/fitnes");	
-//			System.out.println("DAO: išèem za izbris "+o);
-//			Connection conn=null;
-//			try {
-//				conn=ds.getConnection();
-//				PreparedStatement ps = conn.prepareStatement("update clan set ime=? , priimek=? , spol = ?, datumRojstva = ? , datumVpisa = ?, sifra = ? where id=?");
-//				ps.setString(1, o.getIme());
-//				ps.setString(2, o.getPriimek());
-//				ps.setString(3, o.getSpol());
-//				Date novDatumR = o.getDatumRojstva();
-//				java.sql.Date novDatumRsql = new java.sql.Date(novDatumR.getTime());
-//				ps.setDate(4, novDatumRsql);
-//				Date novDatumV = o.getDatumVpisa();
-//				java.sql.Date novDatumVsql = new java.sql.Date(novDatumV.getTime());
-//				ps.setDate(5, novDatumVsql);
-//				ps.setInt(6, o.getSifra());
-//				ps.setInt(7, o.getId());
-//				ps.executeUpdate();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				conn.close();
-//			}
-//		}
+		}	
 	 
 }
