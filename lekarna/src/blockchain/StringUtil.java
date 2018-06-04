@@ -1,6 +1,7 @@
 package blockchain;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
 
 public class StringUtil {
 	//Applies Sha256 to a string and returns the result. 
@@ -21,4 +22,7 @@ public class StringUtil {
 			throw new RuntimeException(e);
 		}
 	}	
-}
+	
+}	
+
+	

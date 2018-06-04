@@ -1,5 +1,6 @@
-package si.feri.praktikum;
 
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -12,20 +13,26 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+
+
 @ManagedBean(name = "zrno")
 @SessionScoped
 public class Model {
 
+	private Kombinacije noveKombinacije = new Kombinacije();
 	private Dopolnilo novoDopolnilo = new Dopolnilo();
 	private Zapis novZapis = new Zapis();
+	private Nasvet novNasvet = new Nasvet();
 	private Zapis_dopolnilo novZapisDopolnila = new Zapis_dopolnilo();
 	private ArrayList<Kartoteka> kartoteke = new ArrayList<Kartoteka>();
 	private ArrayList<Dopolnilo> dopolnila = new ArrayList<Dopolnilo>();
 	private ArrayList<Dopolnilo> dopolnilaBrezRecepta = new ArrayList<Dopolnilo>();
 	private ArrayList<String> izbranaDopolnila = new ArrayList<String>();
 	private ArrayList<Zapis> izbraniZapisi = new ArrayList<Zapis>();
+	private ArrayList<Nasvet> izbraniNasveti = new ArrayList<Nasvet>();
+	private ArrayList<Kombinacije> izbraneKombinacije = new ArrayList<Kombinacije>();
 	private int izbranID;
-
+	
 	private int kolicina;
 	private ArrayList<Integer> kolicine = new ArrayList<Integer>();
 
@@ -35,6 +42,60 @@ public class Model {
 		System.out.println("POGLEJMO ZDAJ: " + kolicine);
 	}
 
+
+	public static ArrayList<Block> blockchain = new ArrayList<Block>();
+	public static int difficulty = 1;
+	int i=0;
+	
+	public void dodajNasvet(String avtor, String pacient) throws Exception {
+		novNasvet.setAvtor(avtor);
+		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+		int idKartoteke = Integer.parseInt(idPacienta);
+		novNasvet.setKartoteka_id(idKartoteke);
+		
+		if(blockchain.isEmpty()) {
+			blockchain.add(new Block(novNasvet.getNasvet(), "0"));
+			novNasvet.setHash(blockchain.get(i).mineBlock(difficulty));
+			}
+		
+		else {	
+			blockchain.add(new Block(novNasvet.getNasvet(),blockchain.get(blockchain.size()-1).hash));
+			novNasvet.setHash(blockchain.get(i).mineBlock(difficulty));
+			}
+		i++;
+		NasvetDAO.getInstance().shraniNasvet(novNasvet);
+		novNasvet = new Nasvet();
+		
+	}
+	
+	public static Boolean isChainValid() {
+		Block currentBlock; 
+		Block previousBlock;
+		String hashTarget = new String(new char[difficulty]).replace('\0', '0');
+		
+		//loop through blockchain to check hashes:
+		for(int i=1; i < blockchain.size(); i++) {
+			currentBlock = blockchain.get(i);
+			previousBlock = blockchain.get(i-1);
+			//compare registered hash and calculated hash:
+			if(!currentBlock.hash.equals(currentBlock.calculateHash()) ){
+				System.out.println("Current Hashes not equal");			
+				return false;
+			}
+			//compare previous hash and registered previous hash
+			if(!previousBlock.hash.equals(currentBlock.previousHash) ) {
+				System.out.println("Previous Hashes not equal");
+				return false;
+			}
+			//check if hash is solved
+			if(!currentBlock.hash.substring( 0, difficulty).equals(hashTarget)) {
+				System.out.println("This block hasn't been mined");
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public ArrayList<Zapis> izbraniZapisi(String ime) throws Exception {
 		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
 		int idKartoteke = Integer.parseInt(idPacienta);
@@ -44,8 +105,16 @@ public class Model {
 			izbraniZapisi.get(i).getDopolnila().toString().replace("[", "").replace("]", "");
 		}
 		return izbraniZapisi;
+	}
+	
+	public ArrayList<Nasvet> izbraniNasveti(String ime) throws Exception {
+		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+		int idKartoteke = Integer.parseInt(idPacienta);
+		izbraniNasveti = (ArrayList<Nasvet>) NasvetDAO.getInstance().vrniVse(idKartoteke);
+		return izbraniNasveti;
 
 	}
+
 	
 	public Dopolnilo najdiZdravilo(String dopolnilo) throws Exception {
 		Dopolnilo najdeno = DopolniloDAO.getInstance().najdiDopolnilo(dopolnilo);
@@ -76,12 +145,15 @@ public class Model {
 			int idKartoteke = Integer.parseInt(idPacienta);
 			novZapis.setKartoteka_id(idKartoteke);
 			System.out.println(novZapis.getKartoteka_id());
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-			LocalDateTime now = LocalDateTime.now();
-			Date cas = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
-			System.out.println("Ëas:" + cas);
-
-			novZapis.setCas(cas);
+//			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//			LocalDateTime now = LocalDateTime.now();
+//			Date cas = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+//			System.out.println("√®as:" + cas);
+			java.util.Date utilDate = new java.util.Date();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(utilDate);
+			new SimpleDateFormat("MM-dd-yyyy HH:mm:ss").format(cal.getTime());
+			novZapis.setCas(cal);
 			novZapis.setTip("izdaja");
 			novZapis.setAvtor(avtor);
 			System.out.println("avtor je: " + novZapis.getAvtor());
@@ -98,7 +170,7 @@ public class Model {
 				izbranaDopolnila.add(dopolnila.get(i).getNaziv());
 			}
 
-			System.out.println("dolûina izbranih2: " + izbranaDopolnila.size());
+			System.out.println("dol≈æina izbranih2: " + izbranaDopolnila.size());
 			System.out.println("PA TO:" + novZapisDopolnila.getZapis_id());
 
 			for (int i = 0; i < izbranaDopolnila.size(); i++) {
@@ -116,7 +188,7 @@ public class Model {
 			novZapisDopolnila = new Zapis_dopolnilo();
 			izbranaDopolnila = new ArrayList<String>();
 
-			// IZRA»UN ZAUéITJA
+			// IZRA√àUN ZAU≈ΩITJA
 
 			idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
 			idKartoteke = Integer.parseInt(idPacienta);
@@ -128,20 +200,14 @@ public class Model {
 					najdaljse = dopolnila.get(i).getTrajanje();
 				}
 			}
-			dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-			now = LocalDateTime.now();
-			cas = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
 
-			Calendar c = Calendar.getInstance();
-			c.setTime(cas);
-			c.add(Calendar.DATE, najdaljse);
+			java.util.Date utilDate2 = new java.util.Date();
+			cal.setTime(utilDate2);
+			cal.add(Calendar.HOUR, najdaljse);
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
 
-			Date koncniCas = c.getTime();
-
-			System.out.println("Ëas:" + koncniCas);
-
-			novZapis.setCas(koncniCas);
-			novZapis.setTip("zadnje_zauûitje");
+			novZapis.setCas(cal);
+			novZapis.setTip("zadnje_zau≈æitje");
 
 			ZapisDAO.getInstance().shraniZapis(novZapis);
 
@@ -156,7 +222,7 @@ public class Model {
 				izbranaDopolnila.add(dopolnila.get(i).getNaziv());
 			}
 
-			System.out.println("dolûina izbranih2: " + izbranaDopolnila.size());
+			System.out.println("dol≈æina izbranih2: " + izbranaDopolnila.size());
 			System.out.println("PA TO:" + novZapisDopolnila.getZapis_id());
 
 			for (int i = 0; i < izbranaDopolnila.size(); i++) {
@@ -267,6 +333,15 @@ public class Model {
 		return kolicina;
 	}
 
+	
+	public Nasvet getNovNasvet() {
+		return novNasvet;
+	}
+
+	public void setNovNasvet(Nasvet novNasvet) {
+		this.novNasvet = novNasvet;
+	}
+
 	public void setKolicina(int kolicina) {
 		System.out.println(kolicina);
 		kolicine.add(kolicina);
@@ -283,7 +358,15 @@ public class Model {
 	public void setKolicine(ArrayList<Integer> kolicine) {
 		this.kolicine = kolicine;
 	}
-
+	public void dodajKombinacijo() {
+		try {
+			if (KombinacijeDAO.getInstance().najdiKombinacije(noveKombinacije.getId()) == null) {
+				KombinacijeDAO.getInstance().shraniKombinacije(noveKombinacije);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public void dodajDopolnilo() {
 		try {
 			if (DopolniloDAO.getInstance().najdiDopolnilo(novoDopolnilo.getId()) == null) {
@@ -293,23 +376,23 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	public void dodajPredpis(String avtor) {
 		try {
 
 			System.out.println("kolicine:" + kolicine.size());
-			System.out.println("naöe ime je: " + this.getPacientIme());
+			System.out.println("na≈°e ime je: " + this.getPacientIme());
 			String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
 			int idKartoteke = Integer.parseInt(idPacienta);
 			novZapis.setKartoteka_id(idKartoteke);
 			novZapis.setIzdan(0);
-			System.out.println(novZapis.getKartoteka_id());
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-			LocalDateTime now = LocalDateTime.now();
 
-			Date cas = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
-			System.out.println("Ëas:" + cas);
-			novZapis.setCas(cas);
+			java.util.Date utilDate = new java.util.Date();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(utilDate);
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
+			novZapis.setCas(cal);
 			novZapis.setTip("predpis");
 			novZapis.setAvtor(avtor);
 			System.out.println("avtor je: " + novZapis.getAvtor());
@@ -327,31 +410,57 @@ public class Model {
 				Zapis_dopolniloDAO.getInstance().shraniZapis_dopolnilo(novZapisDopolnila);
 
 			}
-
+			
+		
+			novNasvet.setAvtor(avtor);
+			novNasvet.setKartoteka_id(idKartoteke);
+			novNasvet.setZapis_id(novZapis.getId());
+			
+			
+			if(blockchain.isEmpty()) {
+				blockchain.add(new Block(novNasvet.getNasvet(), "0"));
+				novNasvet.setHash(blockchain.get(i).mineBlock(difficulty));
+				}
+			else {	
+				blockchain.add(new Block(novNasvet.getNasvet(),blockchain.get(blockchain.size()-1).hash));
+				novNasvet.setHash(blockchain.get(i).mineBlock(difficulty));
+				}
+			i++;
+			int id = NasvetDAO.getInstance().shraniNasvet(novNasvet);
+			novNasvet = new Nasvet();
 			// novZapis.setDopolnila(izbranaDopolnila);
+			
 			novZapis = new Zapis();
 			novZapisDopolnila = new Zapis_dopolnilo();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch(
+
+	Exception e)
+	{
+		e.printStackTrace();
 	}
+	}
+
 	
 	
 	public void novaIzdajaLekarnar(String avtor) {
 		try {
 			System.out.println("kolicine:" + kolicine.size());
-			System.out.println("naöe ime je: " + this.getPacientIme());
+			System.out.println("na≈°e ime je: " + this.getPacientIme());
 			String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
 			int idKartoteke = Integer.parseInt(idPacienta);
 			novZapis.setKartoteka_id(idKartoteke);
 			//novZapis.setIzdan(1);
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-			LocalDateTime now = LocalDateTime.now();
-
-			Date cas = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
-			System.out.println("Ëas:" + cas);
-			novZapis.setCas(cas);
+//			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+//			LocalDateTime now = LocalDateTime.now();
+//
+//			Date cas = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+//			System.out.println("√®as:" + cas);
+			java.util.Date utilDate = new java.util.Date();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(utilDate);
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
+			novZapis.setCas(cal);
 			novZapis.setTip("izdaja");
 			novZapis.setAvtor(avtor);
 			System.out.println("avtor je: " + novZapis.getAvtor());
@@ -391,6 +500,22 @@ public class Model {
 
 	public void odjava() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+	}
+
+	public Kombinacije getNoveKombinacije() {
+		return noveKombinacije;
+	}
+
+	public void setNoveKombinacije(Kombinacije noveKombinacije) {
+		this.noveKombinacije = noveKombinacije;
+	}
+
+	public ArrayList<Kombinacije> getIzbraneKombinacije() {
+		return izbraneKombinacije;
+	}
+
+	public void setIzbraneKombinacije(ArrayList<Kombinacije> izbraneKombinacije) {
+		this.izbraneKombinacije = izbraneKombinacije;
 	}
 
 }

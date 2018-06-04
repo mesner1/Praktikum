@@ -1,12 +1,17 @@
-package si.feri.praktikum;
 
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class Zapis {
 	private int id;
-	private Date cas;
+	private Calendar cas;
 	private int kartoteka_id;
 	private String tip;
 	private String avtor;
@@ -16,7 +21,7 @@ public class Zapis {
 	public Zapis() {
 	}
 
-	public Zapis(int id, Date cas, int kartoteka_id, String tip, String avtor) {
+	public Zapis(int id, Calendar cas, int kartoteka_id, String tip, String avtor) {
 		this.id = id;
 		this.cas = cas;
 		this.kartoteka_id = kartoteka_id;
@@ -24,14 +29,14 @@ public class Zapis {
 		this.avtor = avtor;
 	}
 
-	public Zapis(Date cas, int kartoteka_id, String tip, String avtor) {
+	public Zapis(Calendar cas, int kartoteka_id, String tip, String avtor) {
 		this.cas = cas;
 		this.kartoteka_id = kartoteka_id;
 		this.tip = tip;
 		this.avtor = avtor;
 	}
 
-	public Zapis(Date cas, int kartoteka_id, String tip, String avtor, int izdan, ArrayList<Dopolnilo> dopolnila) {
+	public Zapis(Calendar cas, int kartoteka_id, String tip, String avtor, int izdan, ArrayList<Dopolnilo> dopolnila) {
 		this.cas = cas;
 		this.kartoteka_id = kartoteka_id;
 		this.tip = tip;
@@ -40,7 +45,7 @@ public class Zapis {
 		this.dopolnila = dopolnila;
 	}
 
-	public Zapis(Date cas, int kartoteka_id, String tip, String avtor, ArrayList<Dopolnilo> dopolnila) {
+	public Zapis(Calendar cas, int kartoteka_id, String tip, String avtor, ArrayList<Dopolnilo> dopolnila) {
 		this.cas = cas;
 		this.kartoteka_id = kartoteka_id;
 		this.tip = tip;
@@ -48,7 +53,7 @@ public class Zapis {
 		this.dopolnila = dopolnila;
 	}
 
-	public Zapis(Date cas, int kartoteka_id, String tip, ArrayList<Dopolnilo> dopolnila) {
+	public Zapis(Calendar cas, int kartoteka_id, String tip, ArrayList<Dopolnilo> dopolnila) {
 		this.cas = cas;
 		this.kartoteka_id = kartoteka_id;
 		this.tip = tip;
@@ -67,11 +72,11 @@ public class Zapis {
 		this.id = id;
 	}
 
-	public Date getCas() {
+	public Calendar getCas() {
 		return cas;
 	}
 
-	public void setCas(Date cas) {
+	public void setCas(Calendar cas) {
 		this.cas = cas;
 	}
 
@@ -113,6 +118,28 @@ public class Zapis {
 
 	public void setIzdan(int izdan) {
 		this.izdan = izdan;
+	}
+	public static LocalDateTime toLocalDateTime(Calendar calendar) {
+	      if (calendar == null) {
+	          return null;
+	      }
+	      TimeZone tz = calendar.getTimeZone();
+	      
+	      
+	      //ZoneId zid = tz == null ? ZoneId.systemDefault() : tz.toZoneId();
+	      ZoneId zid = ZoneId.of("Europe/Ljubljana");
+	      
+	      
+	      return LocalDateTime.ofInstant(calendar.toInstant(), zid);
+	  }
+
+	
+	public String getDatumCas() {
+		LocalDateTime cas2 = toLocalDateTime(cas);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+
+      String formatDateTime = cas2.format(formatter);
+      return formatDateTime;
 	}
 
 	// private static SimpleDateFormat sdf=new SimpleDateFormat("dd. MM. yyyy");

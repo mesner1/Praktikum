@@ -1,4 +1,4 @@
-package si.feri.praktikum;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,7 +44,7 @@ public class DopolniloDAO {
 		
 		public Dopolnilo najdiDopolnilo(int id) throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println("DAO: išèem "+id);
+			System.out.println("DAO: iÅ¡Ã¨em "+id);
 			Dopolnilo ret = null;
 			Connection conn=null;
 			try {
@@ -67,7 +67,7 @@ public class DopolniloDAO {
 		
 		public Dopolnilo najdiDopolnilo(String naziv) throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println("DAO: išèem "+naziv);
+			System.out.println("DAO: iÅ¡Ã¨em "+naziv);
 			Dopolnilo ret = null;
 			Connection conn=null;
 			try {
@@ -115,7 +115,7 @@ public class DopolniloDAO {
 		
 		public List<Dopolnilo> vrniVse() throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println(("DAO: vraèam vse èlane"));
+			System.out.println(("DAO: vraÃ¨am vse Ã¨lane"));
 			List<Dopolnilo> ret = new ArrayList<Dopolnilo>();
 			Connection conn=null;
 			try {
@@ -139,7 +139,7 @@ public class DopolniloDAO {
 		
 		public List<Dopolnilo> vrniVseBrezRecepta() throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println(("DAO: vraèam vse èlane"));
+			System.out.println(("DAO: vraÃ¨am vse Ã¨lane"));
 			List<Dopolnilo> ret = new ArrayList<Dopolnilo>();
 			Connection conn=null;
 			try {

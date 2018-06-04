@@ -1,4 +1,4 @@
-package si.feri.praktikum;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+
 
 public class KartotekaDAO {
 
@@ -43,7 +45,7 @@ public class KartotekaDAO {
 		
 		public Kartoteka najdiKartoteko(int id) throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println("DAO: išèem "+id);
+			System.out.println("DAO: iÅ¡Ã¨em "+id);
 			Kartoteka ret = null;
 			Connection conn=null;
 			try {
@@ -89,7 +91,7 @@ public class KartotekaDAO {
 		
 		public List<Kartoteka> vrniVse() throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println(("DAO: vraèam vse èlane"));
+			System.out.println(("DAO: vraÃ¨am vse Ã¨lane"));
 			List<Kartoteka> ret = new ArrayList<Kartoteka>();
 			Connection conn=null;
 			try {
