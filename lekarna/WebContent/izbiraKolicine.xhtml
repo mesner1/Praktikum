@@ -5,14 +5,22 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<head>
-<meta charset="UTF-8" />
-<title>Izbira količine</title>
-</head>
-<body>
+
+
+<h:head>
+	<style>
+fieldset {
+	border: 0;
+}
+</style>
+	<meta charset="UTF-8" />
+	<title>Izbira količine</title>
+	<h:outputScript library="js" name="help.js" />
+</h:head>
+<h:body>
 
 	<f:view>
-		<h:form>
+		<h:form enctype="multipart/form-data">
 
 			<f:metadata>
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
@@ -42,17 +50,32 @@
 
 					<br></br>
 				</h:column>
-
-
 			</h:dataTable>
+
+
+
+			<fieldset class="fieldset">
+				<h:selectBooleanCheckbox binding="#{showUserInfo}">
+					<f:ajax event="click" render="@form" />
+				</h:selectBooleanCheckbox>
+				<h:outputText value="Želim dodati nasvet" />
+				<h:panelGroup
+					rendered="#{not empty showUserInfo.value and showUserInfo.value}">
+					<p>
+						<h:inputTextarea value="#{zrno.novNasvet.nasvet}" cols="30"
+							rows="10" />
+					</p>
+					
+				</h:panelGroup>
+			</fieldset>
 
 			<br></br>
 			<h:commandButton value="Nazaj" action="novPredpis.xhtml" />
 
 			<h:commandButton value="Dodaj"
 				actionListener="#{zrno.dodajPredpis(request.remoteUser)}"
-				action="seznam.xhtml" />
+				action="zdravnik.xhtml" />
 		</h:form>
 	</f:view>
-</body>
+</h:body>
 </html>

@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-    version="2.2">
-   <navigation-rule>
-		<display-name>prijava.xhtml</display-name>
-		<from-view-id>/prijava.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/home.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<application>
+		<resource-bundle>
+			<base-name>JSF File Upload</base-name>
+			<var>labels</var>
+		</resource-bundle>
+	</application>
+
 	<navigation-rule>
-		<display-name>prijava.xhtml</display-name>
-		<from-view-id>/prijava.xhtml</from-view-id>
+		<from-view-id>JSFFileUpload.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>failure</from-outcome>
-			<to-view-id>/prijava.xhtml</to-view-id>
+			<from-action>#{jsfFileUploadBean.processFileUpload}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>novNasvet.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-   
+
 
 </faces-config>

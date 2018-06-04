@@ -7,29 +7,29 @@
 
 <head>
 <meta charset="UTF-8" />
-<title>Nov predpis</title>
+<title>Nov nasvet</title>
 </head>
 <body>
 
 	<f:view>
-		<h:form>
+		<h:form enctype="multipart/form-data">
 
 			<f:metadata>
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
-
+  
 			#{zrno.pacientIme}
+			<br></br>
+			Nasvet: 
+			<br></br>
+			<h:inputTextarea value="#{zrno.novNasvet.nasvet}" cols="30" rows="10" />
+			<br></br>
 
 
-			<h:selectManyCheckbox value="#{zrno.izbranaDopolnila}">
-				<f:selectItems value="#{zrno.dopolnila}" />
-			</h:selectManyCheckbox>
 
-
-
-
-			<h:commandButton value="Naprej" 
-				action="izbiraKolicine.xhtml" /> 
+			<h:commandButton value="Dodaj nasvet"
+				actionListener="#{zrno.dodajNasvet(request.remoteUser, zrno.pacientIme)}"
+				action="zdravnik.xhtml" />
 
 		</h:form>
 	</f:view>

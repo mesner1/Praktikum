@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+<meta charset="UTF-8" />
+<title>Pregled nasvetov</title>
+</head>
+<body>
+
+	<f:view>
+		<h:form>
+
+			<f:metadata>
+				<f:viewParam name="id" value="#{zrno.pacientIme}" />
+			</f:metadata>
+
+			<font size="6">Pacient: #{zrno.pacientIme}</font>
+			<br></br>
+
+			<br></br>
+			<h:commandButton value="Nasvet" action="novNasvet.xhtml" />
+			<br></br>
+
+			<h:dataTable value="#{zrno.izbraniNasveti(zrno.pacientIme)}" var="c"
+				styleClass="pregled">
+				<h:column>
+					<font size="5"><b>Nasvet #{c.id}</b></font>
+					<br></br>
+					<b>Nasvet: </b>
+					<br></br>
+					<h:outputText value="#{c.nasvet}" />
+					<br></br>
+					<b>Avtor: </b>
+					<h:outputText value="#{c.avtor}" />
+					<br></br>
+
+				</h:column>
+			</h:dataTable>
+
+
+			<br></br>
+			<a> <h:link value="Domov" outcome="domov.xhtml" /></a>
+			<a> <h:link value="Nazaj" outcome="pregledKartotek.xhtml" /></a>
+		</h:form>
+	</f:view>
+</body>
+</html>
