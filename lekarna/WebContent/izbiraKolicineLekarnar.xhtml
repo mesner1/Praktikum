@@ -10,7 +10,9 @@
 <title>Izbira količine</title>
 </head>
 <body>
-
+<ui:include src="/headerLekarnar.xhtml" />
+<br></br>
+<br></br>
 	<f:view>
 		<h:form>
 
@@ -18,10 +20,13 @@
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
 
-			#{zrno.pacientIme}
+			<p><font size="6">Pacient: #{zrno.pacientIme}</font></p>
 			
-			<b>Izbrano zdravilo</b>
+
+			
+			<b><p>Izbrano zdravilo</p>	</b>
 			<br></br>
+			<div align="center">
 			<h:dataTable value="#{zrno.izbranaDopolnila}" var="c"
 				styleClass="pregled">
 				<h:column>
@@ -48,10 +53,11 @@
 
 			<br></br>
 			<h:commandButton value="Nazaj" action="izdajaLekarnar.xhtml" />
-
+<b> </b>
 			<h:commandButton value="Dodaj"
 				actionListener="#{zrno.novaIzdajaLekarnar(request.remoteUser)}"
-				action="seznam.xhtml" />
+				action="seznamLekarnar.xhtml" />
+				</div>
 		</h:form>
 	</f:view>
 </body>

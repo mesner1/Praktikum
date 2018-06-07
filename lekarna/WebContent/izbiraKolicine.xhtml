@@ -5,35 +5,31 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-
-
-<h:head>
-	<style>
-fieldset {
-	border: 0;
-}
-</style>
-	<meta charset="UTF-8" />
-	<title>Izbira količine</title>
-	<h:outputScript library="js" name="help.js" />
-</h:head>
-<h:body>
-
+<head>
+<meta charset="UTF-8" />
+<title>Izbira količine</title>
+</head>
+<body>
+<ui:include src="/header.xhtml" />
+<br></br>
+<br></br>
 	<f:view>
-		<h:form enctype="multipart/form-data">
+		<h:form>
 
 			<f:metadata>
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
-
-			#{zrno.pacientIme}
+             <br></br><br></br>
+			<p><font size="6">Pacient: #{zrno.pacientIme}</font></p>
 			
-			<b>Izbrano zdravilo</b>
+			<b><p>Izbrano zdravilo</p>	</b>
 			<br></br>
+			<div align="center">
 			<h:dataTable value="#{zrno.izbranaDopolnila}" var="c"
 				styleClass="pregled">
+				
 				<h:column>
-
+                    
 					<h:outputText value="#{c}" />
 
 
@@ -50,11 +46,12 @@ fieldset {
 
 					<br></br>
 				</h:column>
+              
+
 			</h:dataTable>
-
-
-
-			<fieldset class="fieldset">
+</div>
+           <div align="center">
+            <fieldset class="fieldset">
 				<h:selectBooleanCheckbox binding="#{showUserInfo}">
 					<f:ajax event="click" render="@form" />
 				</h:selectBooleanCheckbox>
@@ -68,14 +65,22 @@ fieldset {
 					
 				</h:panelGroup>
 			</fieldset>
+</div>
 
 			<br></br>
+			<div class="pacient">
+			
 			<h:commandButton value="Nazaj" action="novPredpis.xhtml" />
-
+				<b> </b>
 			<h:commandButton value="Dodaj"
 				actionListener="#{zrno.dodajPredpis(request.remoteUser)}"
-				action="zdravnik.xhtml" />
+				action="seznam.xhtml" />
+				
+			
+            </div>
+            
+			
 		</h:form>
 	</f:view>
-</h:body>
+</body>
 </html>

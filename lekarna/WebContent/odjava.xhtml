@@ -4,12 +4,19 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-<head>
+<h:head>
 <meta charset="UTF-8" />
 <title>Odjava</title>
-</head>
-<body>
-	Odjava uspešna!
-	<a><h:link value="Nazaj" outcome="domov.xhtml" /></a>
-</body>
+
+</h:head>
+
+<h:body>
+<ui:include src="/headerPrijava.xhtml" />
+	<p>Uspešno ste se odjavili!</p>
+	<div align="center">
+	<h:form>
+	<h:commandButton value="Prijava" action="domov.xhtml" />
+	</h:form>
+	</div>
+</h:body>
 </html>

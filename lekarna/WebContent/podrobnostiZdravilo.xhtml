@@ -10,7 +10,7 @@
 <title>Podrobnosti zdravila</title>
 </head>
 <body>
-
+<ui:include src="/header.xhtml" />
 	<f:view>
 		<h:form>
 
@@ -20,12 +20,15 @@
 			</f:metadata>
 
 			<br></br>
+			<br></br><br></br>
 			<br></br>
-
+            <div align ="center">
 			<h:dataTable value="#{zrno.najdiZdravilo(zdravilo)}" var="c"
 				styleClass="pregled">
 				<h:column>
-					<font size="5"><b>#{c.naziv}</b></font>
+					<font size="5" text-align="center"><b><p>#{c.naziv}</p></b></font>
+						
+			
 					<br></br>
 					<b>Priporočeno trajanje uživanja: </b>
 					<h:outputText value="#{c.trajanje}" /> dni
@@ -36,9 +39,12 @@
 
 
 			</h:dataTable>
-
-			<a> <h:link value="Domov" outcome="domov.xhtml" /></a>
-
+			<br></br>
+			<br></br>
+			</div>
+            <div class="pacient">
+			<h:commandButton value="Nazaj" action="pregledKartotek.xhtml" />
+            </div>
 		</h:form>
 	</f:view>
 </body>

@@ -6,23 +6,17 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <head>
 <meta charset="UTF-8" />
-<title>Lekarnar</title>
+<title>Vnos meritve</title>
 </head>
 <body>
-<ui:include src="/headerLekarnar.xhtml" />
+<ui:include src="/header.xhtml" />
 <br></br>
 <br></br>
-
-
- <p>Izberite kartoteko pacienta</p>
- <div class="pacient">
+	<p>Uspešno!</p>
+<div align="center">
 	<h:form>
-		<h:selectOneMenu value="#{zrno.pacientIme}">
-			<f:selectItems value="#{zrno.kartoteke}" />
-		</h:selectOneMenu>
-    <br></br>
-	<h:commandButton value="Izberi" action="pregledZapisovLekarnar.xhtml" />
-
+	<h:commandButton value="Nazaj" action="lekarnar.xhtml" />
+	
 	</h:form>
 	</div>
 </body>

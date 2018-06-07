@@ -4,15 +4,25 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-<head>
+	
+<h:head>
 <meta charset="UTF-8" />
 <title>Prijava</title>
-</head>
-<body>
-	<form action="j_security_check" method="post">
-		<strong>Uporabniško ime: </strong> <input type="text"
-			name="j_username" /> <strong>Geslo: </strong> <input type="password"
-			name="j_password" /> <input type="submit" value="Prijava" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
+
+
+</h:head>
+<h:body>
+<ui:include src="/headerPrijava.xhtml" />
+<br></br>
+
+	<form  action="j_security_check" method="post" align="center">
+	
+		<p>Uporabniško ime: </p> <div align ="center" ><input style="text-align:center;" class="w3-input w3-border w3-round-xxlarge" type="text"
+			name="j_username" /></div> <p>Geslo: </p> <div align ="center" > <input style="text-align:center;" class="w3-input w3-border w3-round-xxlarge" type="password"
+			name="j_password" /></div> <input type="submit" value="Prijava" />
+			
 	</form>
-</body>
+
+</h:body>
 </html>

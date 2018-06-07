@@ -10,27 +10,34 @@
 <title>Nov nasvet</title>
 </head>
 <body>
-
+<ui:include src="/header.xhtml" />
+<br></br>
+<br></br>
 	<f:view>
-		<h:form enctype="multipart/form-data">
+		<h:form>
 
 			<f:metadata>
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
-  
-			#{zrno.pacientIme}
+             <br></br><br></br>
+			<p><font size="6">Pacient: #{zrno.pacientIme}</font></p>
+			
 			<br></br>
-			Nasvet: 
+			<p>Nasvet: </p>
 			<br></br>
+			<div align="center">
 			<h:inputTextarea value="#{zrno.novNasvet.nasvet}" cols="30" rows="10" />
 			<br></br>
 
-
-
+           
+<h:commandButton value="Nazaj"
+				actionListener="#{zrno.dodajNasvet(request.remoteUser, zrno.pacientIme)}"
+				action="pregledKartotek.xhtml" />
+				<b> </b>
 			<h:commandButton value="Dodaj nasvet"
 				actionListener="#{zrno.dodajNasvet(request.remoteUser, zrno.pacientIme)}"
 				action="zdravnik.xhtml" />
-
+</div>
 		</h:form>
 	</f:view>
 </body>

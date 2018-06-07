@@ -3,26 +3,32 @@
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<head>
+<h:head>
 <meta charset="UTF-8" />
 <title>Home page</title>
-</head>
-<body>
+</h:head>
 
-	<f:view>
-		<h:form>
+<h:body>
+<ui:include src="/header.xhtml" />
+<br></br>
+<br></br>
+<p>Zdravstvena ustanova, v kateri se opravlja lekarniška dejavnost,<br></br> torej zagotavlja preskrbo prebivalstva in drugih organizacij z zdravili.</p>
+<div align="center">
+<b:carousel id="parque" style="width:800px;height:400px;" >
+  <b:carouselItem>
+    <img src="http://www.mestnelekarne.si/data/lekarne_slike/.Lekarna_Litija_1_noter.large-800x366.jpg" alt="Valladolid" style="width:800px;height:400px;"/>
+  </b:carouselItem>
+  <b:carouselItem>
+    <img src="http://www.europark.si/si/imagelib/magnify/default/trgovine/portali2016/lekarna.jpg" alt="Valladolid" style="width:800px;height:400px;"/>
+  </b:carouselItem>
+  <b:carouselItem>
+    <img src="https://www.gorenjske-lekarne.si/imagecache/original/zeleznikinotranv.jpg" alt="Valladolid" style="width:800px;height:400px;"/>
+  </b:carouselItem>
+</b:carousel>
 
-
-			<a><h:link value="Lekarnar" outcome="lekarnar.xhtml" /></a>
-			<a><h:link value="Zdravnik" outcome="zdravnik.xhtml" /></a>
-			<br></br>
-			<td><h:commandButton value="Odjava"
-					actionListener="#{zrno.odjava}" action="odjava.xhtml"
-					styleClass="gumb" /></td>
-
-		</h:form>
-	</f:view>
-</body>
+</div>
+</h:body>
 </html>

@@ -3,24 +3,26 @@
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
+	
 	xmlns:f="http://java.sun.com/jsf/core">
 <head>
 <meta charset="UTF-8" />
 <title>Zdravnik</title>
 </head>
 <body>
-
-	
-	Uspešno ste se prijavili, g. #{request.remoteUser}!
-
-	<br></br> Izberite kartoteko pacienta
+<ui:include src="/header.xhtml" />
+	<br></br>	
+	<br></br>	
+	<p>Uspešno ste se prijavili, g. #{request.remoteUser}! <br></br>
+ Izberite kartoteko pacienta</p>
 	<h:form>
-	<h:selectOneMenu value="#{zrno.pacientIme}">
+	<div class="pacient">
+	<h:selectOneMenu class="dropdown" value="#{zrno.pacientIme}">
 			<f:selectItems value="#{zrno.kartoteke}" />
 		</h:selectOneMenu>
-
-		<h:commandButton value="Izberi" action="pregledKartotek.xhtml" />
-
+        <br></br>
+		<h:commandButton value="Izberi" action="pregledKartotek.xhtml" styleClass="form-control radius-none"/>
+    </div>
 	</h:form>
 
 <!--  

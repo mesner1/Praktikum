@@ -10,7 +10,9 @@
 <title>Pregled nasvetov</title>
 </head>
 <body>
-
+<ui:include src="/header.xhtml" />
+<br></br>
+<br></br>
 	<f:view>
 		<h:form>
 
@@ -18,33 +20,44 @@
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
 
-			<font size="6">Pacient: #{zrno.pacientIme}</font>
+			<p><font size="6">Pacient: #{zrno.pacientIme}</font></p>
 			<br></br>
-
+<div align="center">
 			<br></br>
 			<h:commandButton value="Nasvet" action="novNasvet.xhtml" />
-			<br></br>
-
-			<h:dataTable value="#{zrno.izbraniNasveti(zrno.pacientIme)}" var="c"
-				styleClass="pregled">
-				<h:column>
-					<font size="5"><b>Nasvet #{c.id}</b></font>
-					<br></br>
-					<b>Nasvet: </b>
-					<br></br>
+			<br></br><br></br>
+            </div>
+			 <div align ="center">
+			<h:dataTable id="customers" value="#{zrno.izbraniNasveti(zrno.pacientIme)}" var="c"
+				styleClass="tabela" border="1" align="center" float="center" text-align="center" >
+				 <h:column>
+				    <f:facet name="header">
+					<b>Nasvet:</b>
+					</f:facet>
+					<font><b>Nasvet #{c.id}</b></font>
+					</h:column>
 					<h:outputText value="#{c.nasvet}" />
-					<br></br>
+					<h:column>
+					<f:facet name="header">
 					<b>Avtor: </b>
+					</f:facet>
 					<h:outputText value="#{c.avtor}" />
-					<br></br>
+					</h:column>
 
-				</h:column>
+				
 			</h:dataTable>
-
-
+         
+            </div>
 			<br></br>
-			<a> <h:link value="Domov" outcome="domov.xhtml" /></a>
-			<a> <h:link value="Nazaj" outcome="pregledKartotek.xhtml" /></a>
+			 
+		
+			<div align="center">
+			<h:commandButton value="Domov" action="domov.xhtml" />
+			<b> </b>
+			<h:commandButton value="Nazaj" action="pregledKartotek.xhtml" />
+			</div>
+			
+			
 		</h:form>
 	</f:view>
 </body>
