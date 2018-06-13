@@ -10,16 +10,24 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
 </head>
 <body>
-Prišlo je do napake. Poskusite ponovno
-<ui:include src="/headerPrijava.xhtml" />
-<br></br>
+	Prišlo je do napake. Poskusite ponovno
+	<ui:include src="/headerPrijava.xhtml" />
+	<br></br>
 
-	<form  action="j_security_check" method="post" align="center">
-	
-		<p>Uporabniško ime: </p> <input style="text-align:center;" class="w3-input w3-border w3-round-xxlarge" type="text"
-			name="j_username" /> <p>Geslo: </p> <input style="text-align:center;" class="w3-input w3-border w3-round-xxlarge" type="password"
-			name="j_password" /> <input type="submit" value="Prijava" />
-			
+	<form action="j_security_check" method="post" align="center">
+
+		<p>Uporabniško ime:</p>
+		<div align="center">
+			<input style="text-align: center;"
+				class="w3-input w3-border w3-round-xxlarge" type="text"
+				name="j_username" />
+		</div>
+		<p>Geslo:</p>
+		<div align="center">
+			<input style="text-align: center;"
+				class="w3-input w3-border w3-round-xxlarge" type="password"
+				name="j_password" /> <input type="submit" value="Prijava" />
+		</div>
 	</form>
 </body>
 </html>

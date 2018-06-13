@@ -10,9 +10,9 @@
 <title>Nova izdaja</title>
 </head>
 <body>
-<ui:include src="/header.xhtml" />
-<br></br>
-<br></br>
+	<ui:include src="/header.xhtml" />
+	<br></br>
+	<br></br>
 	<f:view>
 		<h:form>
 
@@ -20,20 +20,35 @@
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
 
-			<p><font size="6">Pacient: #{zrno.pacientIme}</font></p>
+			<br></br>
+			<div align="center">
+				<h:dataTable value="#{zrno.pridobiPacienta(zrno.pacientIme)}"
+					var="p">
+					<h:column>
+						<font size="6">Pacient: <b>#{p.ime} #{p.priimek}</b></font>
+						<br></br>
+						<div align="center">
+							starost: <b> <h:outputText value="#{p.starost}" />
+							</b>, spol: <b> <h:outputText value="moški"
+									rendered="#{p.spol == 0}" /> <h:outputText value="ženski"
+									rendered="#{p.spol == 1}" />
+							</b>
+						</div>
+					</h:column>
+				</h:dataTable>
+			</div>
+			<br></br>
+			<div align="center">
+				<h:selectManyCheckbox value="#{zrno.izbranaDopolnila}">
+					<f:selectItems value="#{zrno.dopolnilaBrezRecepta}" />
+				</h:selectManyCheckbox>
 
-            <div align="center">
-			<h:selectManyCheckbox value="#{zrno.izbranaDopolnila}">
-				<f:selectItems value="#{zrno.dopolnilaBrezRecepta}" />
-			</h:selectManyCheckbox>
-            
 
 
 
 
-			<h:commandButton value="Naprej" 
-				action="izbiraKolicineLekarnar.xhtml" /> 
-           </div>
+				<h:commandButton value="Naprej" action="izbiraKolicineLekarnar.xhtml" />
+			</div>
 		</h:form>
 	</f:view>
 </body>

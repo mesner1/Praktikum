@@ -19,14 +19,31 @@
 			<f:metadata>
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
-
-			<p>
-				<font size="6">Pacient: #{zrno.pacientIme}</font>
-			</p>
+			<br></br>
+			<div align="center">
+				<h:dataTable value="#{zrno.pridobiPacienta(zrno.pacientIme)}"
+					var="p">
+					<h:column>
+						<font size="6">Pacient: <b>#{p.ime} #{p.priimek}</b></font>
+						<br></br>
+						<div align="center">
+							starost:
+							<b>
+							<h:outputText value="#{p.starost}"/>
+							</b>,
+							spol:
+							<b>
+							<h:outputText value="moški" rendered="#{p.spol == 0}" />
+							<h:outputText value="ženski" rendered="#{p.spol == 1}" />
+							</b>
+						</div>
+					</h:column>
+				</h:dataTable>
+			</div>
 			<br></br>
 			<div align="center">
 				<br></br>
-				<h:commandButton value="Nasvet" action="novNasvet.xhtml" />
+				<h:commandButton value="Nov nasvet" action="novNasvet.xhtml" />
 				<br></br>
 				<br></br>
 			</div>
@@ -35,13 +52,7 @@
 					value="#{zrno.izbraniNasveti(zrno.pacientIme)}" var="c"
 					styleClass="tabela" border="1" align="center" float="center"
 					text-align="center">
-					<h:column>
-						<f:facet name="header">
-							<b>Nasvet:</b>
-						</f:facet>
-						<font><b>Nasvet #{c.id}</b></font>
-					</h:column>
-					<h:outputText value="#{c.nasvet}" />
+
 
 					<h:column>
 						<f:facet name="header">
@@ -50,6 +61,14 @@
 						<h:outputText value="#{c.nasvet}" />
 					</h:column>
 
+					<h:column  rendered="#{c.zapis_id != 0}">
+						<f:facet name="header">
+							<b>Št. zapisa:</b>
+						</f:facet>
+						<h:outputText value="#{c.zapis_id}" rendered="#{c.zapis_id != 0}"/>
+						<h:outputText value="/" rendered="#{c.zapis_id == 0}"/>
+					</h:column>
+					
 					<h:column>
 						<f:facet name="header">
 							<b>Avtor: </b>

@@ -27,7 +27,7 @@
 			<b><p>Izbrano zdravilo</p>	</b>
 			<br></br>
 			<div align="center">
-			<h:dataTable value="#{zrno.izbranaDopolnila}" var="c"
+			<h:dataTable value="#{zrno.prikaziIzbranaDopolnila()}" var="c"
 				styleClass="pregled">
 				<h:column>
 
@@ -44,7 +44,7 @@
 						<f:selectItem itemValue="7" itemLabel=" 7" />
 						<f:selectItem itemValue="8" itemLabel=" 8" />
 					</h:selectOneMenu>
-
+			x #{c.embalaza}
 					<br></br>
 				</h:column>
 
@@ -55,8 +55,8 @@
 			<h:commandButton value="Nazaj" action="izdajaLekarnar.xhtml" />
 <b> </b>
 			<h:commandButton value="Dodaj"
-				actionListener="#{zrno.novaIzdajaLekarnar(request.remoteUser)}"
-				action="seznamLekarnar.xhtml" />
+				actionListener="#{zrno.novaIzdajaLekarnar(request.remoteUser)}" onclick="if (! confirm('Ali ste prepričani?')) return false"
+				action="lekarnar.xhtml" />
 				</div>
 		</h:form>
 	</f:view>

@@ -21,11 +21,26 @@
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
 
-			<p>
-				<font size="6">Pacient: #{zrno.pacientIme}</font>
-			</p>
-
-
+			<br></br>
+			<div align="center">
+				<h:dataTable value="#{zrno.pridobiPacienta(zrno.pacientIme)}"
+					var="p">
+					<h:column>
+						<font size="6">Pacient: <b>#{p.ime} #{p.priimek}</b></font>
+						<br></br>
+						<div align="center">
+							starost: <b> <h:outputText value="#{p.starost}" />
+							</b>, spol: <b> <h:outputText value="moški"
+									rendered="#{p.spol == 0}" /> <h:outputText value="ženski"
+									rendered="#{p.spol == 1}" />
+							</b>
+						</div>
+					</h:column>
+				</h:dataTable>
+			</div>
+			<br></br>
+			<div align="center">Prikaz neizdanih predpisov pacienta</div>
+			<br></br>
 			<div align="center">
 				<h:dataTable id="customers"
 					value="#{zrno.izbraniZapisiLekarnar(zrno.pacientIme)}" var="c"
@@ -75,7 +90,8 @@
 						<f:facet name="header">
 							<b>Izdano: </b>
 						</f:facet>
-						<h:commandButton value="Izdaj" onclick="if (! confirm('Ali res želite izdati recept?')) return false"
+						<h:commandButton value="Izdaj"
+							onclick="if (! confirm('Ali res želite izdati recept?')) return false"
 							actionListener="#{zrno.izdaj(request.remoteUser, c.id, c.dopolnila)}"
 							action="pregledZapisovLekarnar.xhtml" />
 
@@ -91,10 +107,11 @@
 				<h:form>
 					<h:commandButton value="Nazaj" action="lekarnar.xhtml" />
 					<b> </b>
-					<h:commandButton value="Nova izdaja" action="izdajaLekarnar.xhtml" />
+					<h:commandButton value="Nova izdaja" action="izdajaLekarnar.xhtml">
+						<f:param name="from" value="#{request.requestURI}" />
+					</h:commandButton>
 					<b> </b>
-					<h:commandButton value="Preglej izdane"
-						action="vsiIzdani.xhtml" />
+					<h:commandButton value="Preglej izdane" action="vsiIzdani.xhtml" />
 				</h:form>
 			</div>
 

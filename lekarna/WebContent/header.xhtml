@@ -22,6 +22,8 @@
 					rendered="#{request.isUserInRole('zdravniki')}" />
 				<h:commandLink value="Izdaj zdravilo" action="lekarnar.xhtml"
 					rendered="#{request.isUserInRole('lekarnarji')}" />
+				<h:commandLink value="Statistika" action="statistika.xhtml"
+					rendered="#{request.isUserInRole('lekarnarji')}" />
 			</h:form>
 		</div>
 
@@ -33,7 +35,7 @@
 
 			<h:commandButton value="Odjava" actionListener="#{zrno.odjava}"
 				action="odjava.xhtml" styleClass="gumb" />
-			
+
 		</div>
 
 

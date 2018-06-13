@@ -1,29 +1,46 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
-<head>
+<h:head>
 <meta charset="UTF-8" />
 <title>Zdravnik</title>
-</head>
-<body>
+</h:head>
+<h:body>
 <ui:include src="/header.xhtml" />
 	<br></br>	
 	<br></br>	
-	<p><br></br>
+	<p>
  Izberite kartoteko pacienta</p>
-	<h:form>
-	<div class="pacient">
-	<h:selectOneMenu class="dropdown" value="#{zrno.pacientIme}">
-			<f:selectItems value="#{zrno.kartoteke}" />
-		</h:selectOneMenu>
-        <br></br>
-		<h:commandButton value="Izberi" action="pregledKartotek.xhtml" styleClass="form-control radius-none"/>
-    </div>
-	</h:form>
+	
+	
+	
+<div align="center">
+<h:form id="autocompleteForm">
 
-</body>
+         <p:growl id="msgs" showDetail="true" />
+         <div align="center">      
+                  
+
+              <strong><p>Pacient: </p></strong>                   
+
+             <p:autoComplete value="#{zrno.pacientIme}"
+			completeMethod="#{countryBean.autoComplete}"
+			forceSelection="true" required="true"
+			requiredMessage="Izberite pacienta" />
+		
+        
+         </div>  
+         <br></br>
+         <h:commandButton value="Izberi" action="pregledKartotek.xhtml" styleClass="form-control radius-none">
+         	<f:param name="id" value="#{zrno.pacientIme}" />
+         </h:commandButton>
+      </h:form>
+
+</div>
+
+</h:body>
 </html>

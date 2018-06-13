@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+<head>
+<meta charset="UTF-8" />
+<title>Graf</title>
+</head>
+<body>
+	<ui:include src="/header.xhtml" />
+
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{zrnoStatistika.izbranoZdravilo}" />
+	</f:metadata>
+
+	<br></br>
+	<br></br>
+	<br></br>
+	<h:form>
+
+		<h:panelGroup style="display:block; text-align:center">
+			<p:panelGrid column="6" rowClasses="center-td">
+
+				<div align="center" class="pacient">
+
+					Graf vseh zdravil: <br></br>
+				</div>
+			</p:panelGrid>
+		</h:panelGroup>
+
+		<div align="center">
+			<p:chart type="line" model="#{zrnoStatistika.grafVseh}"
+				style="height:300px; width:80%" />
+		</div>
+
+		<div align="center">
+			<h:commandButton value="Nazaj" action="statistika.xhtml"
+				styleClass="form-control radius-none">
+			</h:commandButton>
+		</div>
+
+
+	</h:form>
+
+
+
+</body>
+</html>

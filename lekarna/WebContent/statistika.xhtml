@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+<head>
+<meta charset="UTF-8" />
+<title>Statistika</title>
+</head>
+<body>
+	<ui:include src="/header.xhtml" />
+	<br></br>
+	<br></br>
+	<br></br>
+	<h:form>
+
+		<h:panelGroup style="display:block; text-align:center">
+			<p:panelGrid column="6" rowClasses="center-td">
+
+				<div align="center" class="pacient">
+
+					Graf izdaj posameznega zdravila
+					<b:selectOneMenu class="dropdown"
+						value="#{zrnoStatistika.izbranoZdravilo}">
+						<f:selectItems value="#{zrnoStatistika.zdravila}" />
+					</b:selectOneMenu>
+
+					<div align="center">
+						<h:commandButton value="Prikaži" action="prikaziGraf.xhtml"
+							actionListener="#{zrnoStatistika.init(zrnoStatistika.izbranoZdravilo)}"
+							styleClass="form-control radius-none">
+						</h:commandButton>
+					</div>
+					<br></br>
+					<h:commandLink value="Graf izdaj vseh zdravil"
+						actionListener="#{zrnoStatistika.init()}"
+						action="prikaziGrafVseh.xhtml" />
+				</div>
+			</p:panelGrid>
+		</h:panelGroup>
+
+
+	</h:form>
+
+</body>
+</html>

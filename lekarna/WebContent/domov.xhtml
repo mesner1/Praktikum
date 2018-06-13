@@ -4,34 +4,72 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-<meta charset="UTF-8" />
-<title>Home page</title>
+	<meta charset="UTF-8" />
+	<title>Home page</title>
 </h:head>
-
 <h:body>
+	<ui:include src="/header.xhtml" />
+	<br></br>
+	<br></br>
+	<div align="center">
+		<font size="6">Pozdravljen, #{request.remoteUser}!</font>
+	</div>
+	<p>
+		Zdravstvena ustanova, v kateri se opravlja lekarniška dejavnost,<br></br>
+		torej zagotavlja preskrbo prebivalstva in drugih organizacij z
+		zdravili.
+	</p>
+
+	<c:if test="#{request.isUserInRole('lekarnarji')}">
+		<div align="center">
+			<b:carousel id="parque" style="width:100%;height:400px;">
+				<b:carouselItem>
+					<img src="http://shrani.si/f/2r/Y1/3Z4ZpENd/1.png" alt="Valladolid"
+						style="width: 100%; height: 400px;" />
+				</b:carouselItem>
+
+				<b:carouselItem>
+					<img src="http://shrani.si/f/1b/6T/3KQPJZbM/2.png" alt="Valladolid"
+						style="width: 100%; height: 400px;" />
+				</b:carouselItem>
+				<b:carouselItem>
+					<img src="http://shrani.si/f/K/oC/Cv9QWJx/3.png" alt="Valladolid"
+						style="width: 100%; height: 400px;" />
+				</b:carouselItem>
+			</b:carousel>
+		</div>
+	</c:if>
 
 
-<ui:include src="/header.xhtml" />
-<br></br>
-<br></br>
-<div align="center"><font size="6">Pozdravljeni, #{request.remoteUser}!</font></div>
-<p>Zdravstvena ustanova, v kateri se opravlja lekarniška dejavnost,<br></br> torej zagotavlja preskrbo prebivalstva in drugih organizacij z zdravili.</p>
-<div align="center">
-<b:carousel id="parque" style="width:800px;height:400px;" >
-  <b:carouselItem>
-    <img src="http://www.mestnelekarne.si/data/lekarne_slike/.Lekarna_Litija_1_noter.large-800x366.jpg" alt="Valladolid" style="width:800px;height:400px;"/>
-  </b:carouselItem>
-  <b:carouselItem>
-    <img src="http://www.europark.si/si/imagelib/magnify/default/trgovine/portali2016/lekarna.jpg" alt="Valladolid" style="width:800px;height:400px;"/>
-  </b:carouselItem>
-  <b:carouselItem>
-    <img src="https://www.gorenjske-lekarne.si/imagecache/original/zeleznikinotranv.jpg" alt="Valladolid" style="width:800px;height:400px;"/>
-  </b:carouselItem>
-</b:carousel>
+	<c:if test="#{request.isUserInRole('zdravniki')}">
+		<div align="center">
 
-</div>
+			<b:carousel id="parque" style="width:100%;height:400px;">
+				<b:carouselItem>
+					<img src="http://shrani.si/f/1T/7p/2B8sCESS/1z.png"
+						alt="Valladolid" style="width: 100%; height: 400px;" />
+				</b:carouselItem>
+
+
+				<b:carouselItem>
+					<img src="http://shrani.si/f/45/dJ/xxqYchx/5z.png" alt="Valladolid"
+						style="width: 100%; height: 400px;" />
+				</b:carouselItem>
+				<b:carouselItem>
+					<img src="http://shrani.si/f/1p/Zx/4sABCR7x/3z.png"
+						alt="Valladolid" style="width: 100%; height: 400px;" />
+				</b:carouselItem>
+				<b:carouselItem>
+					<img src="http://shrani.si/f/35/gV/ydVyMLm/4z.png" alt="Valladolid"
+						style="width: 100%; height: 400px;" />
+				</b:carouselItem>
+
+			</b:carousel>
+		</div>
+	</c:if>
 </h:body>
 </html>
