@@ -1,16 +1,15 @@
 package praktikum;
 
-import dao.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.TransformerException;
 
 import org.apache.fop.apps.FOPException;
 
-import Email.*;
+import blockchain.*;
+import dao.*;
+import email.EmailPoslji;
 import vao.*;
 import xmlvpdf.Xml;
-import blockchain.*;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -28,7 +27,6 @@ import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
 
 
 @ManagedBean(name = "zrno")
@@ -56,10 +54,11 @@ public class Model {
 	private String pacientIme;
 	
 	
-	public void ustvariPdf() {
+	public void ustvariPdf(int id) {
+		System.out.println("ID PDF: " + id);
 		Xml ob = new Xml();
 		try {
-			ob.writeXmlFile(izbraniZapisi);
+			ob.writeXmlFile(izbraniZapisi, id);
 		} catch (FOPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,11 +74,18 @@ public class Model {
 	}
 
 	
+	
+	public Kartoteka pridobiPacienta(String ime) throws Exception {
+		String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
+		int idKartoteke = Integer.parseInt(idPacienta);
+		Kartoteka pacient = KartotekaDAO.getInstance().najdiKartoteko(idKartoteke);
+		return pacient;
+	}
 
 
 	public boolean preveriKombinacijo() throws Exception {
 	// kombinacije
-		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+		String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 		int idKartoteke = Integer.parseInt(idPacienta);
 		
 		
@@ -134,7 +140,7 @@ public class Model {
 
 	public void dodajNasvet(String avtor, String pacient) throws Exception {
 		novNasvet.setAvtor(avtor);
-		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+		String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 		int idKartoteke = Integer.parseInt(idPacienta);
 		novNasvet.setKartoteka_id(idKartoteke);
 
@@ -182,7 +188,7 @@ public class Model {
 	}
 
 	public ArrayList<Zapis> izbraniZapisi(String ime) throws Exception {
-		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+		String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 		int idKartoteke = Integer.parseInt(idPacienta);
 		izbraniZapisi = (ArrayList<Zapis>) ZapisDAO.getInstance().vrniVse(idKartoteke);
 		// izbraniZapisi.toString().replace("[","");
@@ -193,7 +199,7 @@ public class Model {
 	}
 
 	public ArrayList<Nasvet> izbraniNasveti(String ime) throws Exception {
-		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+		String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 		int idKartoteke = Integer.parseInt(idPacienta);
 		izbraniNasveti = (ArrayList<Nasvet>) NasvetDAO.getInstance().vrniVse(idKartoteke);
 		return izbraniNasveti;
@@ -206,7 +212,7 @@ public class Model {
 	}
 
 	public ArrayList<Zapis> izbraniZapisiLekarnar(String ime) throws Exception {
-		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+		String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 		int idKartoteke = Integer.parseInt(idPacienta);
 		izbraniZapisi = (ArrayList<Zapis>) ZapisDAO.getInstance().vrniVseNeizdane(idKartoteke);
 		System.out.println("dolzinaLekarnar: " + izbraniZapisi.size());
@@ -221,7 +227,7 @@ public class Model {
 	}
 
 	public ArrayList<Zapis> vsiIzdani(String ime) throws Exception {
-		String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+		String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 		int idKartoteke = Integer.parseInt(idPacienta);
 		izbraniZapisi = (ArrayList<Zapis>) ZapisDAO.getInstance().vrniVseIzdane(idKartoteke);
 		System.out.println("dolzinaLekarnar: " + izbraniZapisi.size());
@@ -238,7 +244,7 @@ public class Model {
 
 	public void izdaj(String avtor, int idZapis, ArrayList<Dopolnilo> dopolnila) throws Exception {
 		try {
-			String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+			String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 			int idKartoteke = Integer.parseInt(idPacienta);
 			novZapis.setKartoteka_id(idKartoteke);
 			java.util.Date utilDate = new java.util.Date();
@@ -285,7 +291,7 @@ public class Model {
 
 			// IZRAČUN ZAUŽITJA
 
-			idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+			idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 			idKartoteke = Integer.parseInt(idPacienta);
 			novZapis.setKartoteka_id(idKartoteke);
 			int najdaljse = dopolnila.get(0).getTrajanje() * dopolnila.get(0).getKolicina();
@@ -554,7 +560,7 @@ public class Model {
 		try {
 
 			System.out.println("kolicine:" + kolicine.size());
-			String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+			String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 			int idKartoteke = Integer.parseInt(idPacienta);
 			novZapis.setKartoteka_id(idKartoteke);
 			novZapis.setIzdan(0);
@@ -610,7 +616,7 @@ public class Model {
 
 	public void novaIzdajaLekarnar(String avtor) {
 		try {
-			String idPacienta = this.getPacientIme().substring(0, this.getPacientIme().indexOf(" -"));
+			String idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 			int idKartoteke = Integer.parseInt(idPacienta);
 			novZapis.setKartoteka_id(idKartoteke);
 
@@ -637,9 +643,63 @@ public class Model {
 
 			}
 
+
+			// POSILJANJE OBVESTILA
+			izbranaKartoteka = KartotekaDAO.getInstance().najdiKartoteko(idKartoteke);
+			String email = izbranaKartoteka.getEmail();
+			String ime = izbranaKartoteka.getIme();
+			String priimek = izbranaKartoteka.getPriimek();
+			EmailPoslji e = new EmailPoslji();
+			e.poslji(avtor, email, ime, priimek);
+
+
+			// IZRAČUN ZAUŽITJA
+
+			idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
+			idKartoteke = Integer.parseInt(idPacienta);
+			novZapis.setKartoteka_id(idKartoteke);
+			ArrayList<Dopolnilo> pretvorjena = (ArrayList<Dopolnilo>) DopolniloDAO.getInstance().pretvori(izbranaDopolnila);
+			int najdaljse = pretvorjena.get(0).getTrajanje() * pretvorjena.get(0).getKolicina();
+			for (int i = 0; i < pretvorjena.size(); i++) {
+				if (pretvorjena.get(i).getTrajanje() * pretvorjena.get(i).getKolicina() > najdaljse) {
+					najdaljse = pretvorjena.get(i).getTrajanje() * pretvorjena.get(i).getKolicina();
+				}
+			}
+
+			java.util.Date utilDate2 = new java.util.Date();
+			cal.setTime(utilDate2);
+			cal.add(Calendar.DATE, najdaljse);
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime());
+
+			novZapis.setCas(cal);
+			novZapis.setTip("zadnje zaužitje");
+
+			ZapisDAO.getInstance().shraniZapis(novZapis);
+
+			novZapisDopolnila.setZapis_id(novZapis.getId());
+
+
+			for (int i = 0; i < pretvorjena.size(); i++) {
+				izbranaDopolnila.add(pretvorjena.get(i).getNaziv());
+			}
+
+			for (int i = 0; i < izbranaDopolnila.size(); i++) {
+				Dopolnilo izbrano = DopolniloDAO.getInstance().najdiDopolnilo(izbranaDopolnila.get(i));
+				Zapis zadnji = ZapisDAO.getInstance().najdiZapis();
+				int zadnjiID = zadnji.getId();
+				System.out.println("zadnjiID: " + zadnjiID);
+				Zapis_dopolnilo najden = Zapis_dopolniloDAO.getInstance().najdiDoloceno(izbrano.getId(), zadnjiID);
+				novZapisDopolnila.setDopolnilo_id(izbrano.getId());
+				novZapisDopolnila.setKolicina(najden.getKolicina());
+				Zapis_dopolniloDAO.getInstance().shraniZapis_dopolnilo(novZapisDopolnila);
+
+			}
+
 			// novZapis.setDopolnila(izbranaDopolnila);
 			novZapis = new Zapis();
 			novZapisDopolnila = new Zapis_dopolnilo();
+			izbranaDopolnila = new ArrayList<String>();
+
 
 		} catch (Exception e) {
 			e.printStackTrace();

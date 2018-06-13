@@ -1,8 +1,5 @@
 package dao;
 
-import dao.*;
-import vao.*;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import dao.*;
+import vao.*;
 
 
 

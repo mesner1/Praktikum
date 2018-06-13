@@ -66,7 +66,6 @@ public class Zapis_dopolniloDAO {
 
 	public Zapis_dopolnilo najdiDoloceno(int dopolnilo, int zapis) throws Exception {
 		DataSource ds = (DataSource) new InitialContext().lookup("java:jboss/datasources/lekarna");
-		System.out.println("DAO: i��em " + zapis + ", " + dopolnilo);
 		Zapis_dopolnilo ret = null;
 		Connection conn = null;
 		try {
@@ -88,6 +87,30 @@ public class Zapis_dopolniloDAO {
 		return ret;
 	}
 
+	public ArrayList<Zapis_dopolnilo> najdiVseZapise(int dopolnilo) throws Exception {
+		DataSource ds = (DataSource) new InitialContext().lookup("java:jboss/datasources/lekarna");
+		ArrayList<Zapis_dopolnilo> ret = new ArrayList<Zapis_dopolnilo>();
+		Zapis_dopolnilo o = new Zapis_dopolnilo();
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement ps = conn.prepareStatement("select * from zapis_dopolnilo where dopolnilo_id=?",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, dopolnilo);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				o = new Zapis_dopolnilo(rs.getInt("id"), dopolnilo, rs.getInt("zapis_id"), rs.getInt("kolicina"));
+				ret.add(o);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			conn.close();
+		}
+		return ret;
+	}
+	
+	
 	public void shraniZapis_dopolnilo(Zapis_dopolnilo o) throws Exception {
 		DataSource ds = (DataSource) new InitialContext().lookup("java:jboss/datasources/lekarna");
 		System.out.println("DAO: shranjujem zapis_dopolnilo " + o);
@@ -116,7 +139,6 @@ public class Zapis_dopolniloDAO {
 
 	public List<Zapis_dopolnilo> vrniVse() throws Exception {
 		DataSource ds = (DataSource) new InitialContext().lookup("java:jboss/datasources/lekarna");
-		System.out.println(("DAO: vra�am vse �lane"));
 		List<Zapis_dopolnilo> ret = new ArrayList<Zapis_dopolnilo>();
 		Connection conn = null;
 		try {

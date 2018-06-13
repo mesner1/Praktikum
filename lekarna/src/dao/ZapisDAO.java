@@ -1,7 +1,5 @@
 package dao;
 
-import dao.*;
-import vao.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +13,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import dao.*;
+import vao.*;
 
 
 
@@ -62,6 +63,63 @@ public class ZapisDAO {
 				conn=ds.getConnection();
 				PreparedStatement ps = conn.prepareStatement("select * from zapis where id=?",PreparedStatement.RETURN_GENERATED_KEYS);
 				ps.setInt(1, id);
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+//					PreparedStatement ps2 = conn.prepareStatement("select * from tip where id=?",PreparedStatement.RETURN_GENERATED_KEYS);
+//					ps2.setInt(1, rs.getInt("tip_id"));
+//					ResultSet rs2 = ps2.executeQuery();
+					tip = Tip_zapisDAO.getInstance().najdiTip(rs.getInt("tip_id"));
+					//tip = rs2.getString("naziv");
+					GregorianCalendar cas = new GregorianCalendar();
+					cas.setTimeInMillis(rs.getTimestamp("cas").getTime());
+					ret = new Zapis(id, cas, rs.getInt("kartoteka_id"), tip.getNaziv(), rs.getString("avtor"));
+					break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				conn.close();
+			}
+			return ret;
+		}
+		
+		public Zapis najdiZapis() throws Exception {
+			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
+			Zapis ret = null;
+			Tip_zapis tip = new Tip_zapis();
+			Connection conn=null;
+			try {
+				conn=ds.getConnection();
+				PreparedStatement ps = conn.prepareStatement("SELECT * FROM zapis WHERE id = (SELECT MAX(id) FROM zapis where tip_id=?)",PreparedStatement.RETURN_GENERATED_KEYS);
+				ps.setInt(1, 2);
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					GregorianCalendar cas = new GregorianCalendar();
+					cas.setTimeInMillis(rs.getTimestamp("cas").getTime());
+					ret = new Zapis(rs.getInt("id"), cas, rs.getInt("kartoteka_id"), "izdaja", rs.getString("avtor"));
+					break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				conn.close();
+			}
+			return ret;
+		}
+		
+		
+		
+		public Zapis najdiZgoljIzdane(int id) throws Exception {
+			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
+			System.out.println("DAO: išèem "+id);
+			Zapis ret = null;
+			Tip_zapis tip = new Tip_zapis();
+			Connection conn=null;
+			try {
+				conn=ds.getConnection();
+				PreparedStatement ps = conn.prepareStatement("select * from zapis where id=? AND tip_id=?",PreparedStatement.RETURN_GENERATED_KEYS);
+				ps.setInt(1, id);
+				ps.setInt(2, 2);
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
 //					PreparedStatement ps2 = conn.prepareStatement("select * from tip where id=?",PreparedStatement.RETURN_GENERATED_KEYS);
@@ -271,13 +329,11 @@ public class ZapisDAO {
 					
 					
 					PreparedStatement ps4 = conn.prepareStatement("select * from kartoteka WHERE id=?",PreparedStatement.RETURN_GENERATED_KEYS);
-					System.out.println("hudičeva kartoteka: " + rs.getInt("kartoteka_id"));
 					ps4.setInt(1, o.getKartoteka_id());
 					ResultSet rs4 = ps4.executeQuery();
 					while (rs4.next()) {
 						k = new Kartoteka(o.getKartoteka_id(), rs4.getString("ime"), rs4.getString("priimek"), rs4.getString("email"));
 					}
-					System.out.println("k.getImepapriimek" + k.getIme() + " " + k.getPriimek());
 					o.setPacient(k.getIme() + " " + k.getPriimek());
 					
 					o.getCas().setTimeInMillis(rs.getTimestamp("cas").getTime());
@@ -382,6 +438,7 @@ public class ZapisDAO {
     	public List<Zapis> vrniVseIzdane() throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
 			List<Zapis> ret = new ArrayList<Zapis>();
+			Kartoteka k = new Kartoteka();
 			List<Integer> ids = new ArrayList<Integer>();
 			List<Zapis_dopolnilo> vsaDopolnilaZapisa = new ArrayList<Zapis_dopolnilo>();
 			Tip_zapis tip = new Tip_zapis();
@@ -399,6 +456,15 @@ public class ZapisDAO {
 					GregorianCalendar cas = new GregorianCalendar();
 					cas.setTimeInMillis(rs.getTimestamp("cas").getTime());
 					Zapis o = new Zapis(cas, rs.getInt("kartoteka_id"), tip.getNaziv(), rs.getString("avtor"), dopolnila);
+					
+					PreparedStatement ps4 = conn.prepareStatement("select * from kartoteka WHERE id=?",PreparedStatement.RETURN_GENERATED_KEYS);
+					ps4.setInt(1, o.getKartoteka_id());
+					ResultSet rs4 = ps4.executeQuery();
+					while (rs4.next()) {
+						k = new Kartoteka(o.getKartoteka_id(), rs4.getString("ime"), rs4.getString("priimek"), rs4.getString("email"));
+					}
+					o.setPacient(k.getIme() + " " + k.getPriimek());
+					
 					o.getCas().setTimeInMillis(rs.getTimestamp("cas").getTime());
 					o.setId(rs.getInt("id"));
 					
