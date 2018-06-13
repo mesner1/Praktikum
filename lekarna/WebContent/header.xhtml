@@ -3,36 +3,45 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
-    <h:head >
-        <title>Include demo</title>
-       	<meta charset="utf-8"></meta>
+<h:head>
+	<title>Include demo</title>
+	<meta charset="utf-8"></meta>
 
 
-<link rel="stylesheet" type="text/css" href="style.css"></link>
-    </h:head>
-    <h:body>
-    
-			<div class="header">
-  <a href="domov.xhtml" class="logo">LEKARNA</a>
+	<link rel="stylesheet" type="text/css" href="style.css"></link>
+</h:head>
+<h:body>
 
-  <div class="header-right">
-    <a href="domov.xhtml">Domov</a>
-    <a href="lekarnar.xhtml">Lekarna</a> 
-    <a href="zdravnik.xhtml">Zdravnik</a> 
-   
-  </div>
-   
-</div>
-			
-			     <h:form>
-            <div class="odjava">
-			<h:commandButton value="Odjava" actionListener="#{zrno.odjava}" action="odjava.xhtml" styleClass="gumb"/> 
-            </div>
-		
+	<div class="header">
+		<a href="domov.xhtml" class="logo">LEKARNA</a>
+
+		<div class="header-right">
+			<h:form>
+				<h:commandLink value="Domov" action="domov.xhtml" />
+				<h:commandLink value="Predpisi" action="zdravnik.xhtml"
+					rendered="#{request.isUserInRole('zdravniki')}" />
+				<h:commandLink value="Izdaj zdravilo" action="lekarnar.xhtml"
+					rendered="#{request.isUserInRole('lekarnarji')}" />
 			</h:form>
-		<br></br>
+		</div>
 
-      
-      
-    </h:body>
+	</div>
+
+	<h:form>
+
+		<div class="odjava">
+
+			<h:commandButton value="Odjava" actionListener="#{zrno.odjava}"
+				action="odjava.xhtml" styleClass="gumb" />
+			
+		</div>
+
+
+
+	</h:form>
+	<br></br>
+
+
+
+</h:body>
 </html>

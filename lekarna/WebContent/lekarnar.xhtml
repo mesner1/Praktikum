@@ -9,21 +9,25 @@
 <title>Lekarnar</title>
 </head>
 <body>
-<ui:include src="/headerLekarnar.xhtml" />
-<br></br>
-<br></br>
+	<ui:include src="/header.xhtml" />
+	<br></br>
+	<br></br>
 
 
- <p>Izberite kartoteko pacienta</p>
- <div class="pacient">
-	<h:form>
-		<h:selectOneMenu value="#{zrno.pacientIme}">
-			<f:selectItems value="#{zrno.kartoteke}" />
-		</h:selectOneMenu>
-    <br></br>
-	<h:commandButton value="Izberi" action="pregledZapisovLekarnar.xhtml" />
+	<p>Izberite kartoteko pacienta</p>
+	<div class="pacient">
+		<h:form>
+			<h:selectOneMenu value="#{zrno.pacientIme}">
+				<f:selectItems value="#{zrno.kartoteke}" />
+			</h:selectOneMenu>
+			<br></br>
+			<h:commandButton value="Izberi" action="pregledZapisovLekarnar.xhtml" />
+			<br></br><br></br>
+			<h:link styleClass="button" value="Pregled vseh predpisov"
+				outcome="vsiNeizdani.xhtml">
+			</h:link>
 
-	</h:form>
+		</h:form>
 	</div>
 </body>
 </html>

@@ -7,10 +7,10 @@
 
 <head>
 <meta charset="UTF-8" />
-<title>Home page</title>
+<title>Vsi izdani</title>
 </head>
 <body>
-<ui:include src="/headerLekarnar.xhtml" />
+<ui:include src="/header.xhtml" />
 <br></br>
 <br></br>
 
@@ -24,7 +24,7 @@
 			<p><font size="6">Pacient: #{zrno.pacientIme}</font></p>
 			
 			<div align ="center">
-			<h:dataTable id="customers" value="#{zrno.izbraniZapisi(zrno.pacientIme)}" var="c"
+			<h:dataTable id="customers" value="#{zrno.vsiIzdani(zrno.pacientIme)}" var="c"
 				styleClass="tabela" border="1" align="center" float="center" text-align="center" >
 				    <h:column>
 					 
@@ -48,6 +48,7 @@
 								outcome="podrobnostiZdraviloLekarnar.xhtml">
 								<f:param name="zdravilo" value="#{zdravilo}" />
 							</h:link></font>
+							(#{zdravilo.kolicina}x)		
 						<br></br>
 					</ui:repeat>
 					
