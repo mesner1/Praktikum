@@ -14,6 +14,7 @@ import vao.Tip_zapis;
 
 
 
+
 public class Tip_zapisDAO {
 
 	 private Tip_zapisDAO() {

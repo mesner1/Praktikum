@@ -1,6 +1,5 @@
 package vao;
 
-
 public class Tip_zapis {
 
 	private int id;

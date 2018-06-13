@@ -6,10 +6,16 @@ package blockchain;
 
 
 	
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.xml.transform.TransformerException;
+
+import org.apache.fop.apps.FOPException;
+
 import blockchain.StringUtil;
+import xmlvpdf.Xml;
 
 
 
@@ -36,17 +42,6 @@ import blockchain.StringUtil;
 		
 		
 		
-
-		
-		
-		
-		
-		
-
-
-	
-		
-		
 		public String calculateHash() {
 			String calculatedhash = StringUtil.applySha256( 
 					previousHash +
@@ -70,5 +65,7 @@ import blockchain.StringUtil;
 		
 
 	}
+	
 
+	
 

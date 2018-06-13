@@ -1,5 +1,9 @@
 package dao;
 
+import dao.*;
+import vao.*;
+
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +13,6 @@ import java.util.Date;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import vao.Dopolnilo;
 
 public class DopolniloDAO {
 
@@ -36,7 +38,7 @@ public class DopolniloDAO {
 			Connection conn=null;
 			try {
 				conn=ds.getConnection();
-				conn.createStatement().execute("create table dopolnilo (id int auto_increment, naziv varchar(255), naRecept integer, trajanje integer, opis varchar(255), primary key (id))");
+				conn.createStatement().execute("create table dopolnilo (id int auto_increment, naziv varchar(255), naRecept integer, trajanje integer, opis varchar(255), embalaza varchar(255), primary key (id))");
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -47,7 +49,6 @@ public class DopolniloDAO {
 		
 		public Dopolnilo najdiDopolnilo(int id) throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println("DAO: išèem "+id);
 			Dopolnilo ret = null;
 			Connection conn=null;
 			try {
@@ -70,7 +71,6 @@ public class DopolniloDAO {
 		
 		public Dopolnilo najdiDopolnilo(String naziv) throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println("DAO: išèem "+naziv);
 			Dopolnilo ret = null;
 			Connection conn=null;
 			try {
@@ -79,7 +79,7 @@ public class DopolniloDAO {
 				ps.setString(1, naziv);
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
-					ret = new Dopolnilo(rs.getInt("id"), naziv, rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"));
+					ret = new Dopolnilo(rs.getInt("id"), naziv, rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
 					break;
 				}
 			} catch (Exception e) {
@@ -118,7 +118,6 @@ public class DopolniloDAO {
 		
 		public List<Dopolnilo> vrniVse() throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println(("DAO: vraèam vse èlane"));
 			List<Dopolnilo> ret = new ArrayList<Dopolnilo>();
 			Connection conn=null;
 			try {
@@ -126,7 +125,7 @@ public class DopolniloDAO {
 
 				ResultSet rs=conn.createStatement().executeQuery("select * from dopolnilo");
 				while (rs.next()) {
-					Dopolnilo o = new Dopolnilo(rs.getString("naziv"), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"));
+					Dopolnilo o = new Dopolnilo(rs.getString("naziv"), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
 					o.setId(rs.getInt("id"));
 					ret.add(o);
 				}
@@ -142,7 +141,6 @@ public class DopolniloDAO {
 		
 		public List<Dopolnilo> vrniVseBrezRecepta() throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println(("DAO: vraèam vse èlane"));
 			List<Dopolnilo> ret = new ArrayList<Dopolnilo>();
 			Connection conn=null;
 			try {
@@ -151,7 +149,7 @@ public class DopolniloDAO {
 				ps.setInt(1, 0);
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
-					Dopolnilo o = new Dopolnilo(rs.getInt("id"), rs.getString("naziv"), 0, rs.getInt("trajanje"), rs.getString("opis"));
+					Dopolnilo o = new Dopolnilo(rs.getInt("id"), rs.getString("naziv"), 0, rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
 					ret.add(o);
 				}
 				rs.close();
@@ -159,6 +157,56 @@ public class DopolniloDAO {
 				e.printStackTrace();
 			} finally {
 				conn.close();
+			}
+			return ret;
+		}
+	 
+		
+		public List<Integer> poisciId(ArrayList<String> dopolnila) throws Exception {
+			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
+			List<Integer> ret = new ArrayList<Integer>();
+			Connection conn=null;
+			for(int i = 0; i<dopolnila.size(); i++) {
+			try {
+				conn=ds.getConnection();
+				PreparedStatement ps = conn.prepareStatement("select * from dopolnilo WHERE naziv=?",PreparedStatement.RETURN_GENERATED_KEYS);
+				ps.setString(1, dopolnila.get(i));
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					Dopolnilo o = new Dopolnilo(rs.getInt("id"), dopolnila.get(i), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
+					ret.add(o.getId());
+				}
+				rs.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				conn.close();
+			}
+			}
+			return ret;
+		}
+		
+		
+		public static List<Dopolnilo> pretvori(ArrayList<String> dopolnila) throws Exception {
+			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
+			List<Dopolnilo> ret = new ArrayList<Dopolnilo>();
+			Connection conn=null;
+			for(int i = 0; i<dopolnila.size(); i++) {
+			try {
+				conn=ds.getConnection();
+				PreparedStatement ps = conn.prepareStatement("select * from dopolnilo WHERE naziv=?",PreparedStatement.RETURN_GENERATED_KEYS);
+				ps.setString(1, dopolnila.get(i));
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					Dopolnilo o = new Dopolnilo(rs.getInt("id"), dopolnila.get(i), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
+					ret.add(o);
+				}
+				rs.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				conn.close();
+			}
 			}
 			return ret;
 		}

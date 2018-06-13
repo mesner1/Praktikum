@@ -1,5 +1,7 @@
 package dao;
 
+import dao.*;
+import vao.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +11,6 @@ import java.util.Date;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import vao.Kombinacije;
 
 
 
@@ -38,7 +38,7 @@ public class KombinacijeDAO {
 			Connection conn=null;
 			try {
 				conn=ds.getConnection();
-				conn.createStatement().execute("create table if not exists kombinacije (id int auto_increment not null,prvo_zdravilo varchar(255) not null, drugo_zdravilo varchar(255) not null, efekt varchar(255) not null,primary key (id))");
+				conn.createStatement().execute("create table if not exists kombinacije (id int auto_increment not null,prvo_zdravilo varchar(255) not null, drugo_zdravilo varchar(255) not null, efekt varchar(255),primary key (id))");
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -47,51 +47,43 @@ public class KombinacijeDAO {
 		}
 		
 		
-		public Kombinacije najdiKombinacije(int id) throws Exception {
+		public boolean najdiKombinacije(int id1, int id2) throws Exception {
 			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println("DAO: išèem "+id);
-			Kombinacije ret = null;
-			Connection conn=null;
-			try {
-				conn=ds.getConnection();
-				PreparedStatement ps = conn.prepareStatement("select * from Kombinacije where id=?",PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setInt(1, id);
-				ResultSet rs = ps.executeQuery();
-				while (rs.next()) {
-					ret = new Kombinacije(id, rs.getString("prvo_zdravilo"), rs.getString("prvo_zdravilo"), rs.getString("efekt"));
-					break;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				conn.close();
-			}
-			return ret;
-		}
-		
-		
-		public Kombinacije najdiKombinacije(String prvo_zdravilo, String drugo_zdravilo) throws Exception {
-			DataSource ds=(DataSource)new InitialContext().lookup("java:jboss/datasources/lekarna");	
-			System.out.println("DAO: išèem "+prvo_zdravilo+", "+drugo_zdravilo);
 			Kombinacije ret = null;
 			Connection conn=null;
 			try {
 				conn=ds.getConnection();
 				PreparedStatement ps = conn.prepareStatement("select * from Kombinacije where prvo_zdravilo=? and drugo_zdravilo=?",PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setString(1, prvo_zdravilo);
-				ps.setString(2, drugo_zdravilo);
+				ps.setInt(1, id1);
+				ps.setInt(2, id2);
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
-					ret = new Kombinacije(rs.getInt("id"), prvo_zdravilo, drugo_zdravilo, rs.getString("efekt"));
+					ret = new Kombinacije(rs.getInt("id"), id1, id2, rs.getString("efekt"));
 					break;
+				}
+				
+				if(ret==null) {
+				PreparedStatement ps2 = conn.prepareStatement("select * from Kombinacije where drugo_zdravilo=? and prvo_zdravilo=?",PreparedStatement.RETURN_GENERATED_KEYS);
+				ps2.setInt(1, id1);
+				ps2.setInt(2, id2);
+				ResultSet rs2 = ps2.executeQuery();
+				while (rs2.next()) {
+					ret = new Kombinacije(rs2.getInt("id"), id1, id2, rs2.getString("efekt"));
+					break;
+				}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				conn.close();
 			}
-			return ret;
+			if(ret==null)
+				return false;
+			else
+				return true;
 		}
+		
+
 		
 		
 		public void shraniKombinacije(Kombinacije o) throws Exception {
@@ -102,8 +94,8 @@ public class KombinacijeDAO {
 				conn=ds.getConnection();
 				if(o==null) return;
 					PreparedStatement ps = conn.prepareStatement("insert into Kombinacije(prvo_zdravilo , drugo_zdravilo, efekt) values (?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
-					ps.setString(1, o.getprvo_zdravilo());
-					ps.setString(2, o.getdrugo_zdravilo());
+					ps.setInt(1, o.getprvo_zdravilo());
+					ps.setInt(2, o.getdrugo_zdravilo());
 					ps.setString(3, o.getEfekt());
 					
 					ps.executeUpdate();
@@ -129,7 +121,7 @@ public class KombinacijeDAO {
 
 				ResultSet rs=conn.createStatement().executeQuery("select * from Kombinacije");
 				while (rs.next()) {
-					Kombinacije o = new Kombinacije(rs.getString("prvo_zdravilo"), rs.getString("drugo_zdravilo"), rs.getString("efekt"));
+					Kombinacije o = new Kombinacije(rs.getInt("prvo_zdravilo"), rs.getInt("drugo_zdravilo"), rs.getString("efekt"));
 					o.setId(rs.getInt("id"));
 					ret.add(o);
 				}

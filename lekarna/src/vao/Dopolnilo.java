@@ -5,9 +5,6 @@ import java.util.List;
 
 public class Dopolnilo {
 	
-	public enum PrintFormat{
-	    F1, F2, F3
-	}
 
 	private int id;
 	private String naziv;
@@ -15,6 +12,7 @@ public class Dopolnilo {
 	private int trajanje;
 	private int kolicina;
 	private String opis;
+	private String embalaza;
 
 	public Dopolnilo() {
 	}
@@ -60,6 +58,23 @@ public class Dopolnilo {
 		this.naRecept = naRecept;
 		this.trajanje = trajanje;
 		this.opis = opis;
+	}
+	
+	public Dopolnilo(int id, String naziv, int naRecept, int trajanje, String opis, String embalaza) {
+		this.id = id;
+		this.naziv = naziv;
+		this.naRecept = naRecept;
+		this.trajanje = trajanje;
+		this.opis = opis;
+		this.embalaza = embalaza;
+	}
+	
+	public Dopolnilo(String naziv, int naRecept, int trajanje, String opis, String embalaza) {
+		this.naziv = naziv;
+		this.naRecept = naRecept;
+		this.trajanje = trajanje;
+		this.opis = opis;
+		this.embalaza = embalaza;
 	}
 	
 	public String getNaziv() {
@@ -115,6 +130,8 @@ public class Dopolnilo {
 		this.opis = opis;
 	}
 
+	
+	
 
 //	// private static SimpleDateFormat sdf=new SimpleDateFormat("dd. MM. yyyy");
 //	@Override
@@ -122,6 +139,14 @@ public class Dopolnilo {
 //		return naziv + " (" + kolicina + "x)";
 //	}
 
+
+	public String getEmbalaza() {
+		return embalaza;
+	}
+
+	public void setEmbalaza(String embalaza) {
+		this.embalaza = embalaza;
+	}
 
 	// private static SimpleDateFormat sdf=new SimpleDateFormat("dd. MM. yyyy");
 	@Override

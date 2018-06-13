@@ -1,6 +1,5 @@
 package vao;
 
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +17,7 @@ public class Zapis {
 	private String avtor;
 	private int izdan;
 	private ArrayList<Dopolnilo> dopolnila;
+	private String pacient;
 
 	public Zapis() {
 	}
@@ -143,23 +143,16 @@ public class Zapis {
       return formatDateTime;
 	}
 
-	// private static SimpleDateFormat sdf=new SimpleDateFormat("dd. MM. yyyy");
-//	@Override
-//	public String toString() {
-//		ArrayList<String> izpisDopolnil = new ArrayList<String>();
-//		for (int i = 0; i < dopolnila.size(); i++) {
-//			izpisDopolnil.add(dopolnila.get(i).getNaziv());
-//		}
-//		StringBuilder sb = new StringBuilder();
-//		for (String s : izpisDopolnil)
-//		{
-//		    sb.append(s);
-//		    sb.append("\t");
-//		}
-//		return cas + " " + kartoteka_id + " " + sb.toString() + " " + tip;
-//	}
 	
 	
+	public String getPacient() {
+		return pacient;
+	}
+
+	public void setPacient(String pacient) {
+		this.pacient = pacient;
+	}
+
 	@Override
 	public String toString() {
 		return cas + " " + kartoteka_id + " " + tip;

@@ -1,6 +1,5 @@
 package vao;
 
-
 import java.util.ArrayList;
 
 public class Zapis_dopolnilo {

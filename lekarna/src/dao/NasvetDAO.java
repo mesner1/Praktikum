@@ -37,7 +37,7 @@ public class NasvetDAO {
 		try {
 			conn = ds.getConnection();
 			conn.createStatement().execute(
-					"create table nasvet (id int auto_increment, nasvet varchar(255) not null, avtor varchar(255) not null, hash varchar(255), zapis_id int, kartoteka_id int not null, primary key (id))");
+					"create table if not exists nasvet (id int auto_increment, nasvet varchar(255) not null, avtor varchar(255) not null, hash varchar(255), zapis_id int, kartoteka_id int not null, primary key (id))");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
