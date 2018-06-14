@@ -35,6 +35,7 @@ ALI
 
 ## Definirane vloge:
 -Zdravnik1
+
 -Lekarnar1
 
 (Geslo je enako uporabniškemu imenu)
