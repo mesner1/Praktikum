@@ -16,6 +16,7 @@
 
 -Wildfly 12
 
+-MySQL povezava
 
 ### Podatkovna baza
 * v entiteto "Tip" dodamo atribute z ID-ji: 
