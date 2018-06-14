@@ -2,33 +2,35 @@
 
 
 ## Navodila za vzpostavitev projekta:
--Prenesi vsebino repozitorija
+*Prenesi vsebino repozitorija
 
--Importaj projekt Lekarna
+*Importaj projekt Lekarna
 
--Kopiraj *application-roles.properties* in *application-users.properties* datoteki v "Wildfly 12. root/domain/configuration"
+*Kopiraj *application-roles.properties* in *application-users.properties* datoteki v "Wildfly 12. root/domain/configuration"
 
--Kopiraj template.xsl v "Wildfly 12. root/standalone/data"
+*Kopiraj template.xsl v "Wildfly 12. root/standalone/data"
 
 
 ### Predzahteve
--Naložena vsaj Java 8
+*Naložena vsaj Java 8
 
--Wildfly 12
+*Wildfly 12
 
--MySQL povezava
+*MySQL povezava
 
 ### Podatkovna baza
 *odzipaj baza.zip
+
 *ustvari shemo lekarna
+
 * importaj v mysql workbench ali zaženi .sql datoteke znotraj programa, ki podpira skripte (server -> data import)
 
 
 
 ## Definirane vloge:
--Zdravnik
+*Zdravnik
 
--Lekarnar
+*Lekarnar
 
 
 ## Shema trenutne baze
