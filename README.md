@@ -12,7 +12,7 @@
 
 * Preko čarovnika v Wildfly administracijski konzoli (privzeto: localhost:9990) gremo pod deployments-->add-->next-->izberemo lekarna.war datoteko-->next
 
-* Dostopamo do začetne strani preko localhost:8080/Lekarna/domov.xhtml
+* Dostopamo do začetne strani preko localhost:8080/Praktikum2/domov.xhtml
 
 ### Predzahteve
 * Naložena vsaj Java 8
