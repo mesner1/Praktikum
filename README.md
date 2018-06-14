@@ -10,6 +10,9 @@
 
 * Kopiraj template.xsl v "Wildfly 12. root/standalone/data"
 
+* Preko čarovnika v Wildfly administracijski konzoli (privzeto: localhost:9990) gremo pod deployments-->add-->next-->izberemo lekarna.war datoteko-->next
+
+* Dostopamo do začetne strani preko localhost:8080/Lekarna/domov.xhtml
 
 ### Predzahteve
 * Naložena vsaj Java 8
