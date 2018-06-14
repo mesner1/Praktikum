@@ -6,9 +6,9 @@
 
 -Importaj projekt Lekarna
 
--Kopiraj application-roles.properties in application-users.properties datoteki v "Wildfly 12. root/domain/configuration"
+-Kopiraj *application-roles.properties* in *application-users.properties* datoteki v "Wildfly 12. root/domain/configuration"
 
--Kopiraj template.xsl v Wildfly 12. root/data
+-Kopiraj template.xsl v "Wildfly 12. root/standalone/data"
 
 
 ### Predzahteve
