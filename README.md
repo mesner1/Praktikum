@@ -22,7 +22,7 @@
 * MySQL povezava
 
 ### Podatkovna baza
-* odzipaj baza.zip
+* odzipaj podatkovnabaza.zip 
 
 * ustvari shemo lekarna
 
