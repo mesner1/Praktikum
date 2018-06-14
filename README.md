@@ -32,7 +32,7 @@ ALI
 
 
 ## Shema trenutne baze
-![alt text](https://github.com/mesner1/Praktikum/blob/master/Baza.PNG)
+![alt text](https://github.com/mesner1/Praktikum/blob/master/Baza.png)
 
 
  
