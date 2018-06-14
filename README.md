@@ -34,7 +34,7 @@
 
 
 ## Shema trenutne baze
-![alt text](https://github.com/mesner1/Praktikum/blob/master/Baza.png)
+![alt text](https://github.com/mesner1/Praktikum/blob/master/PodatkovnaBaza.png)
 
 
  
