@@ -33,7 +33,11 @@ ALI
 
 
 
+## Definirane vloge:
+-Zdravnik1
+-Lekarnar1
 
+(Geslo je enako uporabniškemu imenu)
 
 ## Shema trenutne baze
 ![alt text](https://github.com/mesner1/Praktikum/blob/master/Baza.png)
