@@ -21,22 +21,30 @@
 
 				<div align="center" class="pacient">
 
-					Graf izdaj posameznega zdravila
-					<b:selectOneMenu class="dropdown"
-						value="#{zrnoStatistika.izbranoZdravilo}">
-						<f:selectItems value="#{zrnoStatistika.zdravila}" />
-					</b:selectOneMenu>
+					<h:panelGroup rendered="#{zrno.vsiIzdani().isEmpty()}">
+					Najprej poskrbite za izdajo zdravil!
+					</h:panelGroup>
 
-					<div align="center">
-						<h:commandButton value="Prikaži" action="prikaziGraf.xhtml"
-							actionListener="#{zrnoStatistika.init(zrnoStatistika.izbranoZdravilo)}"
-							styleClass="form-control radius-none">
-						</h:commandButton>
-					</div>
-					<br></br>
-					<h:commandLink value="Graf izdaj vseh zdravil"
-						actionListener="#{zrnoStatistika.init()}"
-						action="prikaziGrafVseh.xhtml" />
+					<h:panelGroup rendered="#{!zrno.vsiIzdani().isEmpty()}">
+					Graf izdaj posameznega zdravila
+   <p:autoComplete value="#{zrnoStatistika.izbranoZdraviloNaziv}"
+							completeMethod="#{searchBean.autoCompleteZdravilo}"
+							forceSelection="true" required="true"
+							requiredMessage="Izberite pacienta" />
+
+						<div align="center">
+							<h:commandButton value="Prikaži" action="prikaziGraf.xhtml"
+								actionListener="#{zrnoStatistika.init(zrnoStatistika.izbranoZdravilo)}"
+								styleClass="form-control radius-none"
+								rendered="#{zrno.vsiIzdani() != null}">
+							</h:commandButton>
+						</div>
+						<br></br>
+						<h:commandLink value="Graf izdaj vseh zdravil"
+							actionListener="#{zrnoStatistika.init()}"
+							rendered="#{zrno.vsiIzdani() != null}"
+							action="prikaziGrafVseh.xhtml" />
+					</h:panelGroup>
 				</div>
 			</p:panelGrid>
 		</h:panelGroup>

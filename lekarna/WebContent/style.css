@@ -17,7 +17,11 @@ p {
  text-align: center;
 
 }
+.checkbox {
+	
+	width: 200px;
 
+	}
 
 .sirina .apply {
     width: 100px;
@@ -250,6 +254,33 @@ table.tabela th {
     background-color: #5b9f9c;
     color: white;
 }
+table.tabela_kolicina {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 40%;
+    text-align: center;
+    align:center;
+    float:center;
+    horizontal-align: center;
+}	
+	
+table.tabela_kolicina th {
+   border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table.tabela_kolicina tr:nth-child(even){background-color: #f2f2f2;}
+  
+table.tabela_kolicina tr:hover {background-color: #e4efef;}
+table.tabela_kolicina th {
+	border: 1px solid #ddd;
+   padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #5b9f9c;
+    color: white;
+}
 #customers {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -274,6 +305,18 @@ table.tabela th {
 }	
 	
 
+.grid td {
+    display: block;
+    float: center;
+    white-space: nowrap;
+    width: 25%;
+    box-sizing: border-box;
+}
+.grid td:nth-child(4n+5) {
+    clear: center;
+}
+
+
 .button	{
 color:#437472;	
 float : center;
@@ -291,6 +334,7 @@ align: center;
 	}
 	
 .divcheck .container {
+	width:100px;
 	float: center;
 	text-align:center;
 	 display: block;

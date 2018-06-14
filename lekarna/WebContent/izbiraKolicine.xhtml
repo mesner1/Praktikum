@@ -33,31 +33,49 @@ fieldset {
 			</p>
 			<br></br>
 			<div align="center">
-				<b>Izbrana zdravila</b> <br></br>
-				<h:dataTable value="#{zrno.prikaziIzbranaDopolnila()}" var="c"
-					styleClass="pregled">
-					<h:column>
 
-						<h:outputText value="#{c}" />
+				<div align="center">
+					<h:dataTable id="customers"
+						value="#{zrno.prikaziIzbranaDopolnila()}" var="c"
+						styleClass="tabela_kolicina" border="0" align="center"
+						float="center" text-align="center">
 
 
-						<h:selectOneMenu value="#{zrno.kolicina}">
-							<f:selectItem itemValue="1" itemLabel=" 1" />
-							<f:selectItem itemValue="2" itemLabel=" 2" />
-							<f:selectItem itemValue="3" itemLabel=" 3" />
-							<f:selectItem itemValue="4" itemLabel=" 4" />
-							<f:selectItem itemValue="5" itemLabel=" 5" />
-							<f:selectItem itemValue="6" itemLabel=" 6" />
-							<f:selectItem itemValue="7" itemLabel=" 7" />
-							<f:selectItem itemValue="8" itemLabel=" 8" />
-						</h:selectOneMenu>
-				
+
+						<h:column>
+							<f:facet name="header">
+								<b>Izbrano zdravilo:</b>
+							</f:facet>
+							<h:outputText value="#{c}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<b>Kolicina:</b>
+							</f:facet>
+
+
+							<h:selectOneMenu value="#{zrno.kolicina}">
+								<f:selectItem itemValue="1" itemLabel=" 1" />
+								<f:selectItem itemValue="2" itemLabel=" 2" />
+								<f:selectItem itemValue="3" itemLabel=" 3" />
+								<f:selectItem itemValue="4" itemLabel=" 4" />
+								<f:selectItem itemValue="5" itemLabel=" 5" />
+								<f:selectItem itemValue="6" itemLabel=" 6" />
+								<f:selectItem itemValue="7" itemLabel=" 7" />
+								<f:selectItem itemValue="8" itemLabel=" 8" />
+							</h:selectOneMenu>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<b>Embalaza:</b>
+							</f:facet>
 				x #{c.embalaza}
-					<br></br>
-					</h:column>
-				</h:dataTable>
+				</h:column>
+						<br></br>
 
-
+					</h:dataTable>
+				</div>
+				<br></br>
 
 				<fieldset class="fieldset">
 					<h:selectBooleanCheckbox binding="#{showUserInfo}">
@@ -74,19 +92,28 @@ fieldset {
 					</h:panelGroup>
 				</fieldset>
 
+				<h:panelGroup rendered="#{zrno.prikaziIzbranaDopolnila().isEmpty()}">
+					<p>
+						<font color="red">Izberite zdravila!</font>
+					</p>
+				</h:panelGroup>
+
 				<br></br>
 				<h:commandButton value="Nazaj" action="novPredpis.xhtml" />
 
-
+				<b></b>
 				<h:commandButton value="Dodaj"
 					onclick="if (! confirm('Ali ste prepričani?')) return false"
 					actionListener="#{zrno.dodajPredpis(request.remoteUser)}"
-					rendered="#{zrno.preveriKombinacijo()==true}"
+					rendered="#{zrno.preveriKombinacijo()==true and !zrno.prikaziIzbranaDopolnila().isEmpty()}"
 					action="zdravnik.xhtml" />
+
+
 
 
 				<h:panelGroup layout="block"
 					rendered="#{zrno.preveriKombinacijo()==false}">
+
 					<p>
 						<font color="red">Vaš pacient uživa zdravila, ki jih z
 							izbranimi zdravili ni priporočljivo jemati.</font>

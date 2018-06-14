@@ -39,14 +39,15 @@
 			</div>
 			<br></br>
 			<div align="center">
-				<h:selectManyCheckbox value="#{zrno.izbranaDopolnila}">
+				<h:selectManyCheckbox styleClass="grid" value="#{zrno.izbranaDopolnila}">
 					<f:selectItems value="#{zrno.dopolnilaBrezRecepta}" />
 				</h:selectManyCheckbox>
 
 
 
 
-
+                <h:commandButton value="Nazaj" action="lekarnar.xhtml" /> 
+                <b></b>
 				<h:commandButton value="Naprej" action="izbiraKolicineLekarnar.xhtml" />
 			</div>
 		</h:form>

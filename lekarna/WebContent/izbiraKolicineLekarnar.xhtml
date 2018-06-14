@@ -10,9 +10,9 @@
 <title>Izbira količine</title>
 </head>
 <body>
-<ui:include src="/header.xhtml" />
-<br></br>
-<br></br>
+	<ui:include src="/header.xhtml" />
+	<br></br>
+	<br></br>
 	<f:view>
 		<h:form>
 
@@ -20,44 +20,61 @@
 				<f:viewParam name="id" value="#{zrno.pacientIme}" />
 			</f:metadata>
 
-			<p><font size="6">Pacient: #{zrno.pacientIme}</font></p>
-			
-
-			
-			<b><p>Izbrano zdravilo</p>	</b>
+			<p>
+				<font size="6">Pacient: #{zrno.pacientIme}</font>
+			</p>
 			<br></br>
-			<div align="center">
-			<h:dataTable value="#{zrno.prikaziIzbranaDopolnila()}" var="c"
-				styleClass="pregled">
-				<h:column>
+						<div align="center">
+				<div align="center">
+					<h:dataTable id="customers"
+						value="#{zrno.prikaziIzbranaDopolnila()}" var="c"
+						styleClass="tabela_kolicina" border="0" align="center"
+						float="center" text-align="center">
 
-					<h:outputText value="#{c}" />
+
+			<h:column>
+							<f:facet name="header">
+								<b>Izbrano zdravilo:</b>
+							</f:facet>
+							<h:outputText value="#{c}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<b>Kolicina:</b>
+							</f:facet>
 
 
-					<h:selectOneMenu value="#{zrno.kolicina}">
-						<f:selectItem itemValue="1" itemLabel=" 1" />
-						<f:selectItem itemValue="2" itemLabel=" 2" />
-						<f:selectItem itemValue="3" itemLabel=" 3" />
-						<f:selectItem itemValue="4" itemLabel=" 4" />
-						<f:selectItem itemValue="5" itemLabel=" 5" />
-						<f:selectItem itemValue="6" itemLabel=" 6" />
-						<f:selectItem itemValue="7" itemLabel=" 7" />
-						<f:selectItem itemValue="8" itemLabel=" 8" />
-					</h:selectOneMenu>
+						<h:selectOneMenu value="#{zrno.kolicina}">
+							<f:selectItem itemValue="1" itemLabel=" 1" />
+							<f:selectItem itemValue="2" itemLabel=" 2" />
+							<f:selectItem itemValue="3" itemLabel=" 3" />
+							<f:selectItem itemValue="4" itemLabel=" 4" />
+							<f:selectItem itemValue="5" itemLabel=" 5" />
+							<f:selectItem itemValue="6" itemLabel=" 6" />
+							<f:selectItem itemValue="7" itemLabel=" 7" />
+							<f:selectItem itemValue="8" itemLabel=" 8" />
+						</h:selectOneMenu>
 			x #{c.embalaza}
 					<br></br>
-				</h:column>
+					</h:column>
 
 
-			</h:dataTable>
+				</h:dataTable>
+</div>
 
-			<br></br>
-			<h:commandButton value="Nazaj" action="izdajaLekarnar.xhtml" />
-<b> </b>
-			<h:commandButton value="Dodaj"
-				actionListener="#{zrno.novaIzdajaLekarnar(request.remoteUser)}" onclick="if (! confirm('Ali ste prepričani?')) return false"
-				action="lekarnar.xhtml" />
-				</div>
+				<h:panelGroup rendered="#{zrno.prikaziIzbranaDopolnila().isEmpty()}">
+					<p>
+						<font color="red">Izberite zdravila!</font>
+					</p>
+				</h:panelGroup>
+				<br></br>
+				<h:commandButton value="Nazaj" action="izdajaLekarnar.xhtml" />
+				<b> </b>
+				<h:commandButton value="Dodaj"
+					actionListener="#{zrno.novaIzdajaLekarnar(request.remoteUser)}"
+					onclick="if (! confirm('Ali ste prepričani?')) return false"
+					action="lekarnar.xhtml" rendered="#{!zrno.prikaziIzbranaDopolnila().isEmpty()}"/>
+			</div>
 		</h:form>
 	</f:view>
 </body>

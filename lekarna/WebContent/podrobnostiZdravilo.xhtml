@@ -27,9 +27,14 @@
 				styleClass="pregled">
 				<h:column>
 					<font size="5" text-align="center"><b><p>#{c.naziv}</p></b></font>
-						
-			
 					<br></br>
+					<div align="center">
+					<img src="#{c.slika}" alt="Valladolid"
+						style="width: 250px; height: 200px;" />
+						
+						</div>
+			
+					<br></br><br></br>
 					<b>Trajanje uživanja enega pakiranja: </b>
 					<h:outputText value="#{c.trajanje}" /> dni
 					<br></br>
@@ -43,7 +48,7 @@
 			<br></br>
 			</div>
             <div class="pacient">
-			<h:commandButton value="Domov" action="zdravnik.xhtml" />
+			<h:commandButton value="Nazaj" action="pregledKartotek.xhtml" />
             </div>
 		</h:form>
 	</f:view>

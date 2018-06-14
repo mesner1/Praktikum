@@ -25,13 +25,13 @@
 			</p>
 			<br></br>
 
-
-				<h:selectManyCheckbox value="#{zrno.izbranaDopolnila}"
-					styleClass="container">
-							<f:selectItems value="#{zrno.dopolnila}" styleClass="checkbox" />
+              	<div align="center">
+				<h:selectManyCheckbox styleClass = "grid" value="#{zrno.izbranaDopolnila}">
+					
+							<f:selectItems value="#{zrno.dopolnila}" />
+					
 				</h:selectManyCheckbox>
-
-
+                </div>
 
 			<div class="pacient">
 				<h:commandButton value="Nazaj" action="pregledKartotek.xhtml" />
