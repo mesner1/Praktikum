@@ -289,7 +289,7 @@ public class Model {
 			novZapisDopolnila = new Zapis_dopolnilo();
 			izbranaDopolnila = new ArrayList<String>();
 
-			// IZRAČUN ZAUŽITJA
+			// IZRAÈUN ZAUŽITJA
 
 			idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 			idKartoteke = Integer.parseInt(idPacienta);
@@ -384,7 +384,7 @@ public class Model {
 			novZapisDopolnila = new Zapis_dopolnilo();
 			izbranaDopolnila = new ArrayList<String>();
 
-			// IZRAČUN ZAUŽITJA
+			// IZRAÈUN ZAUŽITJA
 
 			novZapis.setKartoteka_id(idKartoteke);
 			System.out.println(novZapis.getKartoteka_id());
@@ -652,19 +652,32 @@ public class Model {
 			EmailPoslji e = new EmailPoslji();
 			e.poslji(avtor, email, ime, priimek);
 
+			
+			// novZapis.setDopolnila(izbranaDopolnila);
+			novZapis = new Zapis();
 
-			// IZRAČUN ZAUŽITJA
 
+			// IZRAÈUN ZAUŽITJA
+
+			System.out.println("kolicine: " + kolicine);
 			idPacienta = this.getPacientIme().substring(this.getPacientIme().indexOf("(") + 1, this.getPacientIme().indexOf(")"));
 			idKartoteke = Integer.parseInt(idPacienta);
 			novZapis.setKartoteka_id(idKartoteke);
-			ArrayList<Dopolnilo> pretvorjena = (ArrayList<Dopolnilo>) DopolniloDAO.getInstance().pretvori(izbranaDopolnila);
-			int najdaljse = pretvorjena.get(0).getTrajanje() * pretvorjena.get(0).getKolicina();
+			DopolniloDAO.getInstance();
+			ArrayList<Dopolnilo> pretvorjena = (ArrayList<Dopolnilo>) DopolniloDAO.pretvori(izbranaDopolnila);
+			int najdaljse = pretvorjena.get(0).getTrajanje() * kolicine.get(0);
+			
+			System.out.println("najdaljše1"+ najdaljse);
 			for (int i = 0; i < pretvorjena.size(); i++) {
-				if (pretvorjena.get(i).getTrajanje() * pretvorjena.get(i).getKolicina() > najdaljse) {
-					najdaljse = pretvorjena.get(i).getTrajanje() * pretvorjena.get(i).getKolicina();
+				System.out.println(pretvorjena.get(i).getTrajanje());
+				System.out.println(kolicine.get(i));
+				if (pretvorjena.get(i).getTrajanje() * kolicine.get(i) > najdaljse) {
+					najdaljse = pretvorjena.get(i).getTrajanje() * kolicine.get(i);
 				}
+				System.out.println("najdaljše: " + najdaljse);
 			}
+			
+			izbranaDopolnila = new ArrayList<String>();
 
 			java.util.Date utilDate2 = new java.util.Date();
 			cal.setTime(utilDate2);
@@ -684,6 +697,8 @@ public class Model {
 			}
 
 			for (int i = 0; i < izbranaDopolnila.size(); i++) {
+				System.out.println("izbranadopolnila size: " + izbranaDopolnila.size());
+				System.out.println("geti: " +izbranaDopolnila.get(i));
 				Dopolnilo izbrano = DopolniloDAO.getInstance().najdiDopolnilo(izbranaDopolnila.get(i));
 				Zapis zadnji = ZapisDAO.getInstance().najdiZapis();
 				int zadnjiID = zadnji.getId();
@@ -692,7 +707,6 @@ public class Model {
 				novZapisDopolnila.setDopolnilo_id(izbrano.getId());
 				novZapisDopolnila.setKolicina(najden.getKolicina());
 				Zapis_dopolniloDAO.getInstance().shraniZapis_dopolnilo(novZapisDopolnila);
-
 			}
 
 			// novZapis.setDopolnila(izbranaDopolnila);

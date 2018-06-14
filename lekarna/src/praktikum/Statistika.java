@@ -32,6 +32,15 @@ public class Statistika {
 
 	private ArrayList<Dopolnilo> zdravila = new ArrayList<Dopolnilo>();
 	private Dopolnilo izbranoZdravilo = new Dopolnilo();
+	private String izbranoZdraviloNaziv = new String();
+
+	public String getIzbranoZdraviloNaziv() {
+		return izbranoZdraviloNaziv;
+	}
+
+	public void setIzbranoZdraviloNaziv(String izbranoZdraviloNaziv) {
+		this.izbranoZdraviloNaziv = izbranoZdraviloNaziv;
+	}
 
 	public ArrayList<Dopolnilo> getZdravila() throws Exception {
 		zdravila = (ArrayList<Dopolnilo>) DopolniloDAO.getInstance().vrniVse();
@@ -56,6 +65,8 @@ public class Statistika {
 	@PostConstruct
 	public void init(Dopolnilo izbranoZdravilo2) throws Exception {
 		System.out.println("izbrano zdravilo" + izbranoZdravilo2);
+		
+		izbranoZdravilo2 = (Dopolnilo) DopolniloDAO.getInstance().najdiDopolnilo(izbranoZdraviloNaziv);
 		createLineModels(izbranoZdravilo2);
 	}
 
@@ -75,12 +86,12 @@ public class Statistika {
 	private void createLineModels() throws Exception {
 		// GRAF VSEH
 		grafVseh = initVsi();
-		grafVseh.setTitle("Graf izdane koliËine");
+		grafVseh.setTitle("Graf izdane koliƒçine");
 		grafVseh.setLegendPosition("e");
 		grafVseh.setShowPointLabels(true);
 		grafVseh.getAxes().put(AxisType.X, new CategoryAxis("Datum"));
 		Axis yAxis = grafVseh.getAxis(AxisType.Y);
-		yAxis.setLabel("KoliËina");
+		yAxis.setLabel("Koliƒçina");
 		yAxis.setMin(0);
 	}
 
@@ -88,12 +99,12 @@ public class Statistika {
 
 		// POSAMEZNO
 		grafZdravilo = initCategoryModel(izbranoZdravilo2);
-		grafZdravilo.setTitle("Graf izdane koliËine");
+		grafZdravilo.setTitle("Graf izdane koliƒçine");
 		grafZdravilo.setLegendPosition("e");
 		grafZdravilo.setShowPointLabels(true);
 		grafZdravilo.getAxes().put(AxisType.X, new CategoryAxis("Datum"));
 		Axis yAxis = grafZdravilo.getAxis(AxisType.Y);
-		yAxis.setLabel("KoliËina");
+		yAxis.setLabel("Koli√®ina");
 		yAxis.setMin(0);
 		// yAxis.setMax(100);
 	}
@@ -131,7 +142,7 @@ public class Statistika {
 			}
 
 			ArrayList<String> datumi = new ArrayList<String>();
-			// isti dan + seötevek koliËine
+			// isti dan + se≈°tevek koli√®ine
 			for (int i = 0; i < zapisi.size(); i++) {
 				datumi.add(zapisi.get(i).getLeDatumCas());
 			}
@@ -225,7 +236,7 @@ public class Statistika {
 				}
 
 				ArrayList<String> datumi = new ArrayList<String>();
-				// isti dan + seötevek koliËine
+				// isti dan + se≈°tevek koli√®ine
 				for (int i = 0; i < zapisi.size(); i++) {
 					datumi.add(zapisi.get(i).getLeDatumCas());
 				}
@@ -289,5 +300,6 @@ public class Statistika {
 		return model;
 
 	}
+	
 
 }

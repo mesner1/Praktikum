@@ -36,7 +36,7 @@ public class DopolniloDAO {
 			Connection conn=null;
 			try {
 				conn=ds.getConnection();
-				conn.createStatement().execute("create table dopolnilo (id int auto_increment, naziv varchar(255), naRecept integer, trajanje integer, opis varchar(255), embalaza varchar(255), primary key (id))");
+				conn.createStatement().execute("create table dopolnilo (id int auto_increment, naziv varchar(255), naRecept integer, trajanje integer, opis varchar(255), embalaza varchar(255), slika varchar(150), primary key (id))");
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -55,7 +55,7 @@ public class DopolniloDAO {
 				ps.setInt(1, id);
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
-					ret = new Dopolnilo(id, rs.getString("naziv"), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"));
+					ret = new Dopolnilo(id, rs.getString("naziv"), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("slika"));
 					break;
 				}
 			} catch (Exception e) {
@@ -77,7 +77,7 @@ public class DopolniloDAO {
 				ps.setString(1, naziv);
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
-					ret = new Dopolnilo(rs.getInt("id"), naziv, rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
+					ret = new Dopolnilo(rs.getInt("id"), naziv, rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"), rs.getString("slika"));
 					break;
 				}
 			} catch (Exception e) {
@@ -96,11 +96,12 @@ public class DopolniloDAO {
 			try {
 				conn=ds.getConnection();
 				if(o==null) return;
-					PreparedStatement ps = conn.prepareStatement("insert into dopolnilo(naziv , naRecept, trajanje) values (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+					PreparedStatement ps = conn.prepareStatement("insert into dopolnilo(naziv , naRecept, trajanje, slika) values (?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 					ps.setString(1, o.getNaziv());
 					ps.setInt(2, o.getNaRecept());
 					ps.setInt(3, o.getTrajanje());
 					ps.setString(4, o.getOpis());
+					ps.setString(5, o.getSlika());
 					ps.executeUpdate();
 					ResultSet res = ps.getGeneratedKeys();
 					while (res.next())
@@ -123,7 +124,7 @@ public class DopolniloDAO {
 
 				ResultSet rs=conn.createStatement().executeQuery("select * from dopolnilo");
 				while (rs.next()) {
-					Dopolnilo o = new Dopolnilo(rs.getString("naziv"), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
+					Dopolnilo o = new Dopolnilo(rs.getString("naziv"), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"), rs.getString("slika"));
 					o.setId(rs.getInt("id"));
 					ret.add(o);
 				}
@@ -147,7 +148,7 @@ public class DopolniloDAO {
 				ps.setInt(1, 0);
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
-					Dopolnilo o = new Dopolnilo(rs.getInt("id"), rs.getString("naziv"), 0, rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
+					Dopolnilo o = new Dopolnilo(rs.getInt("id"), rs.getString("naziv"), 0, rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"),  rs.getString("slika"));
 					ret.add(o);
 				}
 				rs.close();
@@ -171,7 +172,7 @@ public class DopolniloDAO {
 				ps.setString(1, dopolnila.get(i));
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
-					Dopolnilo o = new Dopolnilo(rs.getInt("id"), dopolnila.get(i), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
+					Dopolnilo o = new Dopolnilo(rs.getInt("id"), dopolnila.get(i), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"),  rs.getString("slika"));
 					ret.add(o.getId());
 				}
 				rs.close();
@@ -196,7 +197,7 @@ public class DopolniloDAO {
 				ps.setString(1, dopolnila.get(i));
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
-					Dopolnilo o = new Dopolnilo(rs.getInt("id"), dopolnila.get(i), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"));
+					Dopolnilo o = new Dopolnilo(rs.getInt("id"), dopolnila.get(i), rs.getInt("naRecept"), rs.getInt("trajanje"), rs.getString("opis"), rs.getString("embalaza"),  rs.getString("slika"));
 					ret.add(o);
 				}
 				rs.close();

@@ -126,6 +126,7 @@ public class Xml {
 		// Setup output
 		OutputStream out;
 		out = new java.io.FileOutputStream(home + "//desktop//Zapis" + idZapisa + ".pdf");
+		
 
 		try {
 			// Construct fop with desired output format

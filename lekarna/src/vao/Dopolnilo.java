@@ -13,6 +13,7 @@ public class Dopolnilo {
 	private int kolicina;
 	private String opis;
 	private String embalaza;
+	private String slika;
 
 	public Dopolnilo() {
 	}
@@ -52,31 +53,43 @@ public class Dopolnilo {
 		this.opis = opis;
 	}
 	
-	public Dopolnilo(int id, String naziv, int naRecept, int trajanje, String opis) {
+	public Dopolnilo(int id, String naziv, int naRecept, int trajanje, String opis, String slika) {
 		this.id = id;
 		this.naziv = naziv;
 		this.naRecept = naRecept;
 		this.trajanje = trajanje;
 		this.opis = opis;
+		this.slika = slika;
 	}
 	
-	public Dopolnilo(int id, String naziv, int naRecept, int trajanje, String opis, String embalaza) {
+	public Dopolnilo(int id, String naziv, int naRecept, int trajanje, String opis, String embalaza, String slika) {
 		this.id = id;
 		this.naziv = naziv;
 		this.naRecept = naRecept;
 		this.trajanje = trajanje;
 		this.opis = opis;
 		this.embalaza = embalaza;
+		this.slika = slika;
 	}
 	
-	public Dopolnilo(String naziv, int naRecept, int trajanje, String opis, String embalaza) {
+	public Dopolnilo(String naziv, int naRecept, int trajanje, String opis, String embalaza, String slika) {
 		this.naziv = naziv;
 		this.naRecept = naRecept;
 		this.trajanje = trajanje;
 		this.opis = opis;
 		this.embalaza = embalaza;
+		this.slika = slika;
 	}
 	
+	
+	public String getSlika() {
+		return slika;
+	}
+
+	public void setSlika(String slika) {
+		this.slika = slika;
+	}
+
 	public String getNaziv() {
 		return naziv;
 	}
