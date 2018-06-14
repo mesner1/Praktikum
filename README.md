@@ -19,26 +19,16 @@
 -MySQL povezava
 
 ### Podatkovna baza
-* v entiteto "Tip" dodamo atribute z ID-ji: 
-1. predpis 
-2. izdaja
-3. zadnje_zaužitje                                   
-* entiteto "Dopolnilo" napolnimo z želenimi zdravili, prehranskimi dopolnili ipd.
-* entiteto Kartoteka napolnimo s pacienti
-
-ALI
-
 * odzipaj baza1306.zip .zip
 * importaj v mysql workbench ali zaženi .sql datoteke znotraj programa, ki podpira skripte (server -> data import)
 
 
 
 ## Definirane vloge:
--Zdravnik1
+-Zdravnik
 
--Lekarnar1
+-Lekarnar
 
-(Geslo je enako uporabniškemu imenu)
 
 ## Shema trenutne baze
 ![alt text](https://github.com/mesner1/Praktikum/blob/master/Baza.png)
