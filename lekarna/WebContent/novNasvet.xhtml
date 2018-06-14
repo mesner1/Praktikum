@@ -36,6 +36,7 @@
 
 				<h:commandButton value="Nazaj" action="pregledKartotek.xhtml" />
 				<h:commandButton value="Dodaj nasvet"
+				onclick="if (! confirm('Ali ste prepričani?')) return false"
 					actionListener="#{zrno.dodajNasvet(request.remoteUser, zrno.pacientIme)}"
 					action="zdravnik.xhtml" />
 
