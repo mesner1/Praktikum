@@ -19,7 +19,8 @@
 -MySQL povezava
 
 ### Podatkovna baza
-* odzipaj baza1306.zip .zip
+*odzipaj baza.zip
+*ustvari shemo lekarna
 * importaj v mysql workbench ali zaženi .sql datoteke znotraj programa, ki podpira skripte (server -> data import)
 
 
