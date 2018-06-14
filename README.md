@@ -28,6 +28,7 @@
 
 * importaj v mysql workbench ali zaženi .sql datoteke znotraj programa, ki podpira skripte (server -> data import)
 
+* datasource povezava : java:jboss/datasource/lekarna
 
 
 ## Definirane vloge:
