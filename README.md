@@ -1,18 +1,21 @@
 # Lekarna - Projektna naloga pri predmetu Praktikum 2 
 
 
-
 ## Navodila za vzpostavitev projekta:
 -Prenesi vsebino repozitorija
 
 -Importaj projekt Lekarna
 
--Kopiraj .properties datoteki v "Wildfly 12. root\domain\configuration"
+-Kopiraj application-roles.properties in application-users.properties datoteki v "Wildfly 12. root/domain/configuration"
+
+-Kopiraj template.xsl v Wildfly 12. root/data
+
 
 ### Predzahteve
 -Naložena vsaj Java 8
 
 -Wildfly 12
+
 
 ### Podatkovna baza
 * v entiteto "Tip" dodamo atribute z ID-ji: 
@@ -24,8 +27,8 @@
 
 ALI
 
-* odzipaj lekarna.zip
-* importaj v mysql workbench (server -> data import)
+* odzipaj baza1306.zip .zip
+* importaj v mysql workbench ali zaženi .sql datoteke znotraj programa, ki podpira skripte (server -> data import)
 
 
 
